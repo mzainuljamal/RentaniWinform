@@ -113,6 +113,36 @@ namespace RentaniApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap KotakBiru {
+            get {
+                object obj = ResourceManager.GetObject("KotakBiru", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap KotakBiru1 {
+            get {
+                object obj = ResourceManager.GetObject("KotakBiru1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap KotakBiru2 {
+            get {
+                object obj = ResourceManager.GetObject("KotakBiru2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Login {
             get {
                 object obj = ResourceManager.GetObject("Login", resourceCulture);
@@ -126,6 +156,26 @@ namespace RentaniApp.Properties {
         internal static System.Drawing.Bitmap masukan_Ps {
             get {
                 object obj = ResourceManager.GetObject("masukan Ps", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Talat {
+            get {
+                object obj = ResourceManager.GetObject("Talat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Talat1 {
+            get {
+                object obj = ResourceManager.GetObject("Talat1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

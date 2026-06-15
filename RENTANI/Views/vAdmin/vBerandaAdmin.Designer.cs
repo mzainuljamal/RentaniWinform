@@ -39,13 +39,24 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel1 = new Panel();
+            label4 = new Label();
+            label3 = new Label();
+            panel3 = new Panel();
+            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            panel2 = new Panel();
             guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             btnBeranda = new Guna.UI2.WinForms.Guna2Button();
-            panelKonten = new Panel();
+            btnLogout = new Guna.UI2.WinForms.Guna2Button();
+            label2 = new Label();
+            ucBeranda1 = new ucBeranda();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,6 +64,11 @@
             // 
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(guna2Panel1);
+            panel1.Controls.Add(panel2);
             panel1.Controls.Add(guna2Button4);
             panel1.Controls.Add(guna2Button3);
             panel1.Controls.Add(guna2Button2);
@@ -61,8 +77,56 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(336, 671);
+            panel1.Size = new Size(267, 680);
             panel1.TabIndex = 0;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonHighlight;
+            label4.Location = new Point(31, 61);
+            label4.Name = "label4";
+            label4.Size = new Size(136, 19);
+            label4.TabIndex = 8;
+            label4.Text = "Dashboard Pemilik";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI Black", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(22, 16);
+            label3.Name = "label3";
+            label3.Size = new Size(167, 45);
+            label3.TabIndex = 7;
+            label3.Text = "RENTANI";
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(270, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(464, 150);
+            panel3.TabIndex = 6;
+            // 
+            // guna2Panel1
+            // 
+            guna2Panel1.BackColor = SystemColors.ActiveCaptionText;
+            guna2Panel1.CustomizableEdges = customizableEdges1;
+            guna2Panel1.Location = new Point(333, 3);
+            guna2Panel1.Name = "guna2Panel1";
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2Panel1.Size = new Size(279, 55);
+            guna2Panel1.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(336, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(300, 58);
+            panel2.TabIndex = 0;
             // 
             // guna2Button4
             // 
@@ -74,7 +138,7 @@
             guna2Button4.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             guna2Button4.CheckedState.FillColor = Color.CornflowerBlue;
             guna2Button4.Cursor = Cursors.Hand;
-            guna2Button4.CustomizableEdges = customizableEdges1;
+            guna2Button4.CustomizableEdges = customizableEdges3;
             guna2Button4.DisabledState.BorderColor = Color.DarkGray;
             guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button4.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -82,10 +146,10 @@
             guna2Button4.FillColor = Color.Transparent;
             guna2Button4.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2Button4.ForeColor = Color.White;
-            guna2Button4.Location = new Point(22, 309);
+            guna2Button4.Location = new Point(22, 316);
             guna2Button4.Name = "guna2Button4";
-            guna2Button4.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button4.Size = new Size(287, 36);
+            guna2Button4.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2Button4.Size = new Size(218, 36);
             guna2Button4.TabIndex = 4;
             guna2Button4.Text = "Riwayat Penyewaan";
             guna2Button4.TextAlign = HorizontalAlignment.Left;
@@ -101,7 +165,7 @@
             guna2Button3.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             guna2Button3.CheckedState.FillColor = Color.CornflowerBlue;
             guna2Button3.Cursor = Cursors.Hand;
-            guna2Button3.CustomizableEdges = customizableEdges3;
+            guna2Button3.CustomizableEdges = customizableEdges5;
             guna2Button3.DisabledState.BorderColor = Color.DarkGray;
             guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button3.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -109,10 +173,10 @@
             guna2Button3.FillColor = Color.Transparent;
             guna2Button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2Button3.ForeColor = Color.White;
-            guna2Button3.Location = new Point(22, 267);
+            guna2Button3.Location = new Point(22, 263);
             guna2Button3.Name = "guna2Button3";
-            guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Button3.Size = new Size(287, 36);
+            guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            guna2Button3.Size = new Size(218, 36);
             guna2Button3.TabIndex = 3;
             guna2Button3.Text = "Pembayaran";
             guna2Button3.TextAlign = HorizontalAlignment.Left;
@@ -128,7 +192,7 @@
             guna2Button2.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             guna2Button2.CheckedState.FillColor = Color.CornflowerBlue;
             guna2Button2.Cursor = Cursors.Hand;
-            guna2Button2.CustomizableEdges = customizableEdges5;
+            guna2Button2.CustomizableEdges = customizableEdges7;
             guna2Button2.DisabledState.BorderColor = Color.DarkGray;
             guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -136,10 +200,10 @@
             guna2Button2.FillColor = Color.Transparent;
             guna2Button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2Button2.ForeColor = Color.White;
-            guna2Button2.Location = new Point(22, 225);
+            guna2Button2.Location = new Point(22, 209);
             guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Button2.Size = new Size(287, 36);
+            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2Button2.Size = new Size(218, 36);
             guna2Button2.TabIndex = 2;
             guna2Button2.Text = "Verifikasi Sewa";
             guna2Button2.TextAlign = HorizontalAlignment.Left;
@@ -155,7 +219,7 @@
             guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             guna2Button1.CheckedState.FillColor = Color.CornflowerBlue;
             guna2Button1.Cursor = Cursors.Hand;
-            guna2Button1.CustomizableEdges = customizableEdges7;
+            guna2Button1.CustomizableEdges = customizableEdges9;
             guna2Button1.DisabledState.BorderColor = Color.DarkGray;
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
             guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -163,10 +227,10 @@
             guna2Button1.FillColor = Color.Transparent;
             guna2Button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2Button1.ForeColor = Color.White;
-            guna2Button1.Location = new Point(22, 183);
+            guna2Button1.Location = new Point(22, 156);
             guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Button1.Size = new Size(287, 36);
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            guna2Button1.Size = new Size(218, 36);
             guna2Button1.TabIndex = 1;
             guna2Button1.Text = "Kelola Alat";
             guna2Button1.TextAlign = HorizontalAlignment.Left;
@@ -183,7 +247,7 @@
             btnBeranda.Checked = true;
             btnBeranda.CheckedState.FillColor = Color.CornflowerBlue;
             btnBeranda.Cursor = Cursors.Hand;
-            btnBeranda.CustomizableEdges = customizableEdges9;
+            btnBeranda.CustomizableEdges = customizableEdges11;
             btnBeranda.DisabledState.BorderColor = Color.DarkGray;
             btnBeranda.DisabledState.CustomBorderColor = Color.DarkGray;
             btnBeranda.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -191,38 +255,81 @@
             btnBeranda.FillColor = Color.Transparent;
             btnBeranda.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBeranda.ForeColor = Color.White;
-            btnBeranda.Location = new Point(22, 134);
+            btnBeranda.Location = new Point(22, 107);
             btnBeranda.Name = "btnBeranda";
-            btnBeranda.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnBeranda.Size = new Size(287, 43);
+            btnBeranda.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnBeranda.Size = new Size(218, 43);
             btnBeranda.TabIndex = 0;
             btnBeranda.Text = "Beranda";
             btnBeranda.TextAlign = HorizontalAlignment.Left;
             btnBeranda.TextOffset = new Point(26, 0);
             btnBeranda.Click += btnBeranda_Click;
             // 
-            // panelKonten
+            // btnLogout
             // 
-            panelKonten.Dock = DockStyle.Fill;
-            panelKonten.Location = new Point(336, 0);
-            panelKonten.Name = "panelKonten";
-            panelKonten.Size = new Size(931, 671);
-            panelKonten.TabIndex = 1;
-            panelKonten.Paint += panelKonten_Paint;
+            btnLogout.BackColor = Color.Transparent;
+            btnLogout.BorderColor = Color.Transparent;
+            btnLogout.BorderRadius = 10;
+            btnLogout.BorderThickness = 2;
+            btnLogout.Cursor = Cursors.Hand;
+            btnLogout.CustomBorderColor = Color.Gray;
+            btnLogout.CustomBorderThickness = new Padding(1);
+            btnLogout.CustomizableEdges = customizableEdges13;
+            btnLogout.DisabledState.BorderColor = Color.DarkGray;
+            btnLogout.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnLogout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnLogout.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnLogout.FillColor = Color.Transparent;
+            btnLogout.FocusedColor = Color.FromArgb(0, 0, 192);
+            btnLogout.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.FromArgb(192, 0, 0);
+            btnLogout.Location = new Point(1150, 31);
+            btnLogout.Name = "btnLogout";
+            btnLogout.PressedColor = Color.FromArgb(64, 0, 0);
+            btnLogout.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnLogout.Size = new Size(117, 45);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Logout";
+            btnLogout.Click += guna2Button5_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.AppWorkspace;
+            label2.Location = new Point(362, 76);
+            label2.Name = "label2";
+            label2.Size = new Size(83, 28);
+            label2.TabIndex = 3;
+            label2.Text = "Beranda";
+            label2.Click += label2_Click_1;
+            // 
+            // ucBeranda1
+            // 
+            ucBeranda1.Dock = DockStyle.Fill;
+            ucBeranda1.Location = new Point(0, 0);
+            ucBeranda1.Name = "ucBeranda1";
+            ucBeranda1.Size = new Size(1312, 680);
+            ucBeranda1.TabIndex = 4;
             // 
             // vBerandaAdmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1267, 671);
-            Controls.Add(panelKonten);
+            ClientSize = new Size(1312, 680);
+            Controls.Add(label2);
+            Controls.Add(btnLogout);
             Controls.Add(panel1);
+            Controls.Add(ucBeranda1);
             Name = "vBerandaAdmin";
-            Text = "vBerandaAdmin";
+            Text = "Z";
             Load += vBerandaAdmin_Load;
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -233,6 +340,13 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Panel panelKonten;
+        private Panel panel2;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Panel panel3;
+        private Guna.UI2.WinForms.Guna2Button btnLogout;
+        private Label label2;
+        private Label label4;
+        private Label label3;
+        private ucBeranda ucBeranda1;
     }
 }

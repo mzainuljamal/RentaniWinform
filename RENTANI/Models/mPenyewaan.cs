@@ -41,7 +41,6 @@ namespace RentaniApp.Models
             this.KomentarUlasan = komentar;
             this.TglUlasan = DateTime.Now;
 
-            // Langsung update ulasan ke database
             UpdateUlasanKeDb();
         }
 
