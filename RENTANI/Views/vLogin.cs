@@ -1,7 +1,8 @@
-﻿using RentaniApp.Controllers;
-using RentaniApp.Views.vAdmin;
+﻿using Npgsql;
+using RentaniApp.Controllers;
+using RentaniApp.Helpers;
 using RentaniApp.Models;
-using Npgsql;
+using RentaniApp.Views.vAdmin;
 
 namespace RentaniApp.Views
 {
@@ -38,6 +39,7 @@ namespace RentaniApp.Views
 
             if (userLogin != null)
             {
+                AppSession.StartSession(userLogin);
                 MessageBox.Show($"Selamat Datang, {userLogin.Nama}!", "Login Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Memanfaatkan Polymorphism (.GetRole()) sesuai class modelmu

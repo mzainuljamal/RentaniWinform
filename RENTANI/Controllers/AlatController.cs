@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms; // Ditambahkan agar bisa memunculkan MessageBox peringatan
+using System.Windows.Forms; 
 using RentaniApp.Models;
+using Npgsql;               
+using RentaniApp.Helpers;   
 
 namespace RentaniApp.Controllers
 {
     public class AlatController
     {
-        // 1. MANGGIL MODEL UNTUK SIMPAN DATA (DENGAN VALIDASI SYARAT)
         public bool TambahAlatBaru(Alat dataAlat)
         {
-            // ---- PROSES PENGECEKAN SYARAT (VALIDASI) ----
 
             if (dataAlat == null)
             {
@@ -30,9 +30,10 @@ namespace RentaniApp.Controllers
                 return false;
             }
 
-            if (dataAlat.HargaPerHari <= 0)
+           
+            if (dataAlat.HargaPerHari < 0)
             {
-                MessageBox.Show("Harga sewa per hari harus lebih besar dari Rp 0!", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Harga sewa per hari tidak boleh bernilai minus!", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -48,23 +49,42 @@ namespace RentaniApp.Controllers
                 return false;
             }
 
-            // ---- JIKA SEMUA SYARAT LOLOS, BARU SIMPAN KE DB ----
+          
             return dataAlat.Simpan();
         }
 
-        // 2. MANGGIL MODEL UNTUK AMBIL SEMUA DATA (READ)
+
         public List<Alat> AmbilSemuaAlat()
         {
             return Alat.AmbilSemua();
         }
 
-        // 3. SEBAGAI PENGHUBUNG UPDATE STOK KETIKA ADA TRANSAKSI
+        public int GetTotalAlat()
+        {
+            int total = 0;
+            string query = "SELECT COUNT(*) FROM alat";
+
+            try
+            {
+                using var conn = DbHelper.GetConnection();
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(query, conn);
+                total = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error GetTotalAlat: " + ex.Message);
+            }
+
+            return total;
+        }
+
         public void SesuaikanStokAlat(Alat dataAlat, int jumlahPerubahan)
         {
             dataAlat.UpdateStok(jumlahPerubahan);
         }
 
-        // 4. SEBAGAI PENGHUBUNG CEK APAKAH BARANG READY
         public bool ApakahAlatBisaDisewa(Alat dataAlat)
         {
             return dataAlat.CekKetersediaan();

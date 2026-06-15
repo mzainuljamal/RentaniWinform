@@ -13,9 +13,9 @@ namespace RentaniApp.Controllers
             try
             {
                 using var conn = DbHelper.GetConnection();
-                conn.Open(); // Sekarang aman dibuka di sini karena DbHelper tidak membukanya duluan
+                conn.Open(); 
 
-                // Disesuaikan dengan tabel "user" dan kolom di PostgreSQL kamu
+         
                 string query = @"SELECT id_user, username, password, nama, email, no_hp, alamat, role
                                  FROM ""user""
                                  WHERE username = @username AND password = @password";
@@ -29,7 +29,7 @@ namespace RentaniApp.Controllers
                 {
                     string roleStr = reader.GetString(7);
 
-                    // POLYMORPHISM: Bikin objek berdasarkan string role di database
+         
                     User user = roleStr.Equals("Pemilik", StringComparison.OrdinalIgnoreCase)
                         ? new Pemilik()
                         : new Penyewa();
