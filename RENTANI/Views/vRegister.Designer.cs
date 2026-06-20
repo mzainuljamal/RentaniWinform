@@ -44,6 +44,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -60,6 +64,10 @@
             guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             btnDaftar = new Guna.UI2.WinForms.Guna2GradientButton();
             btnKembali = new Guna.UI2.WinForms.Guna2GradientButton();
+            label9 = new Label();
+            txtPekerjaan = new Guna.UI2.WinForms.Guna2TextBox();
+            label10 = new Label();
+            txtNik = new Guna.UI2.WinForms.Guna2TextBox();
             SuspendLayout();
             // 
             // label1
@@ -276,7 +284,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(12, 409);
+            label8.Location = new Point(11, 480);
             label8.Name = "label8";
             label8.Size = new Size(141, 21);
             label8.TabIndex = 12;
@@ -298,7 +306,7 @@
             guna2TextBox1.Font = new Font("Segoe UI", 9F);
             guna2TextBox1.ForeColor = Color.Black;
             guna2TextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            guna2TextBox1.Location = new Point(12, 435);
+            guna2TextBox1.Location = new Point(12, 506);
             guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
             guna2TextBox1.Name = "guna2TextBox1";
             guna2TextBox1.PlaceholderForeColor = Color.Transparent;
@@ -324,7 +332,7 @@
             btnDaftar.FillColor2 = Color.Navy;
             btnDaftar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDaftar.ForeColor = Color.White;
-            btnDaftar.Location = new Point(283, 538);
+            btnDaftar.Location = new Point(283, 619);
             btnDaftar.Name = "btnDaftar";
             btnDaftar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnDaftar.Size = new Size(187, 36);
@@ -347,7 +355,7 @@
             btnKembali.FillColor2 = Color.LightSlateGray;
             btnKembali.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnKembali.ForeColor = Color.White;
-            btnKembali.Location = new Point(41, 538);
+            btnKembali.Location = new Point(41, 619);
             btnKembali.Name = "btnKembali";
             btnKembali.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnKembali.Size = new Size(187, 36);
@@ -355,12 +363,92 @@
             btnKembali.Text = "Kembali ";
             btnKembali.Click += btnKembali_Click;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.Location = new Point(12, 399);
+            label9.Name = "label9";
+            label9.Size = new Size(87, 21);
+            label9.TabIndex = 16;
+            label9.Text = "Pekerjaan";
+            // 
+            // txtPekerjaan
+            // 
+            txtPekerjaan.BackColor = Color.White;
+            txtPekerjaan.BorderColor = Color.DarkGray;
+            txtPekerjaan.BorderRadius = 10;
+            txtPekerjaan.BorderThickness = 2;
+            txtPekerjaan.CustomizableEdges = customizableEdges17;
+            txtPekerjaan.DefaultText = "";
+            txtPekerjaan.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtPekerjaan.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtPekerjaan.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtPekerjaan.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtPekerjaan.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtPekerjaan.Font = new Font("Segoe UI", 9F);
+            txtPekerjaan.ForeColor = Color.Black;
+            txtPekerjaan.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtPekerjaan.Location = new Point(13, 425);
+            txtPekerjaan.Margin = new Padding(4, 5, 4, 5);
+            txtPekerjaan.Name = "txtPekerjaan";
+            txtPekerjaan.PlaceholderForeColor = Color.Transparent;
+            txtPekerjaan.PlaceholderText = "";
+            txtPekerjaan.SelectedText = "";
+            txtPekerjaan.ShadowDecoration.BorderRadius = 10;
+            txtPekerjaan.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            txtPekerjaan.Size = new Size(216, 40);
+            txtPekerjaan.TabIndex = 17;
+            txtPekerjaan.TextChanged += txtPekerjaan_TextChanged;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI Symbol", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(283, 399);
+            label10.Name = "label10";
+            label10.Size = new Size(38, 21);
+            label10.TabIndex = 18;
+            label10.Text = "NIK";
+            // 
+            // txtNik
+            // 
+            txtNik.BackColor = Color.White;
+            txtNik.BorderColor = Color.DarkGray;
+            txtNik.BorderRadius = 10;
+            txtNik.BorderThickness = 2;
+            txtNik.CustomizableEdges = customizableEdges19;
+            txtNik.DefaultText = "";
+            txtNik.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtNik.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtNik.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtNik.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtNik.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtNik.Font = new Font("Segoe UI", 9F);
+            txtNik.ForeColor = Color.Black;
+            txtNik.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtNik.Location = new Point(283, 425);
+            txtNik.Margin = new Padding(4, 5, 4, 5);
+            txtNik.Name = "txtNik";
+            txtNik.PlaceholderForeColor = Color.Transparent;
+            txtNik.PlaceholderText = "";
+            txtNik.SelectedText = "";
+            txtNik.ShadowDecoration.BorderRadius = 10;
+            txtNik.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            txtNik.Size = new Size(232, 40);
+            txtNik.TabIndex = 19;
+            txtNik.TextChanged += txtNik_TextChanged;
+            // 
             // vRegister
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(529, 643);
+            ClientSize = new Size(529, 690);
+            Controls.Add(txtNik);
+            Controls.Add(label10);
+            Controls.Add(txtPekerjaan);
+            Controls.Add(label9);
             Controls.Add(btnKembali);
             Controls.Add(btnDaftar);
             Controls.Add(guna2TextBox1);
@@ -377,6 +465,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "vRegister";
             Text = "vRegister";
             Load += vRegister_Load;
@@ -402,5 +491,9 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
         private Guna.UI2.WinForms.Guna2GradientButton btnDaftar;
         private Guna.UI2.WinForms.Guna2GradientButton btnKembali;
+        private Label label9;
+        private Guna.UI2.WinForms.Guna2TextBox txtPekerjaan;
+        private Label label10;
+        private Guna.UI2.WinForms.Guna2TextBox txtNik;
     }
 }

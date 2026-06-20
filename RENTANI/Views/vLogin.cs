@@ -3,6 +3,8 @@ using RentaniApp.Controllers;
 using RentaniApp.Helpers;
 using RentaniApp.Models;
 using RentaniApp.Views.vAdmin;
+using System;
+using System.Windows.Forms;
 
 namespace RentaniApp.Views
 {
@@ -14,15 +16,32 @@ namespace RentaniApp.Views
         {
             InitializeComponent();
             _authController = new AutentikasiController();
+            this.KeyPreview = true;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (txtUsername.Focused)
+                {
+                    txtPassword.Focus();
+                    return true;
+                }
+                else if (txtPassword.Focused)
+                {
+                    btnLogin.PerformClick();
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void vLogin_Load(object sender, EventArgs e)
         {
-            // Kursor langsung fokus ke kotak username saat app dibuka
             txtUsername.Focus();
         }
 
-        // --- LOGIKA TOMBOL LOGIN ---
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
@@ -42,14 +61,13 @@ namespace RentaniApp.Views
                 AppSession.StartSession(userLogin);
                 MessageBox.Show($"Selamat Datang, {userLogin.Nama}!", "Login Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Memanfaatkan Polymorphism (.GetRole()) sesuai class modelmu
                 if (userLogin.GetRole() == "Pemilik")
                 {
                     vBerandaAdmin berandaAdmin = new vBerandaAdmin();
                     berandaAdmin.Show();
                     this.Hide();
                 }
-                else // Jika Penyewa
+                else
                 {
                     MessageBox.Show("Login sebagai Penyewa berhasil! (Form Penyewa belum dihubungkan)", "Info Role", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -61,20 +79,15 @@ namespace RentaniApp.Views
                 txtPassword.Focus();
             }
         }
+
         private void lblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             vRegister daftar = new vRegister();
-            daftar.Show();
-            this.Hide();
+            daftar.ShowDialog();
         }
 
-        // Biarkan kosong saja, jangan dihapus supaya desainer tidak error lagi
         private void txtUsername_TextChanged(object sender, EventArgs e) { }
         private void txtPassword_TextChanged(object sender, EventArgs e) { }
-
-        private void vLogin_Load_1(object sender, EventArgs e)
-        {
-
-        }
+        private void vLogin_Load_1(object sender, EventArgs e) { }
     }
 }

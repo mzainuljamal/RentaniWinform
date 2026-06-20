@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using RentaniApp.Controllers;
 using RentaniApp.Models;
@@ -19,17 +14,18 @@ namespace RentaniApp.Views
 
         private void vRegister_Load(object sender, EventArgs e)
         {
-            // Bisa dikosongkan
         }
 
         private void btnDaftar_Click(object sender, EventArgs e)
         {
-            // 1. Validasi Input Data Wajib
+            // Menambahkan validasi wajib isi untuk NIK dan Pekerjaan
             if (string.IsNullOrWhiteSpace(rNaleng.Text) ||
                 string.IsNullOrWhiteSpace(rUname.Text) ||
-                string.IsNullOrWhiteSpace(rPw.Text))
+                string.IsNullOrWhiteSpace(rPw.Text) ||
+                string.IsNullOrWhiteSpace(txtNik.Text) ||
+                string.IsNullOrWhiteSpace(txtPekerjaan.Text))
             {
-                MessageBox.Show("Nama Lengkap, Username, dan Password wajib diisi ya!", "Validasi Gagal",
+                MessageBox.Show("Nama Lengkap, Username, Password, NIK, dan Pekerjaan wajib diisi ya!", "Validasi Gagal",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -38,25 +34,26 @@ namespace RentaniApp.Views
             {
                 btnDaftar.Enabled = false;
 
-                // 2. Bungkus data ke objek Penyewa
-                User userBaru = new Penyewa();
-                userBaru.Nama = rNaleng.Text;
-                userBaru.Username = rUname.Text;
-                userBaru.Password = rPw.Text;
-                userBaru.Email = rEmail.Text;
-                userBaru.NoHp = rNoHP.Text;
-                userBaru.Alamat = guna2TextBox1.Text;
+                // OOP IMPLEMENTATION: Membuat spesifik objek Penyewa lengkap dengan data profil sekundernya
+                Penyewa penyewaBaru = new Penyewa();
+                penyewaBaru.Nama = rNaleng.Text;
+                penyewaBaru.Username = rUname.Text;
+                penyewaBaru.Password = rPw.Text;
+                penyewaBaru.Email = rEmail.Text;
+                penyewaBaru.NoHp = rNoHP.Text;
+                penyewaBaru.Alamat = guna2TextBox1.Text;
+                penyewaBaru.Nik = txtNik.Text;     
+                penyewaBaru.Pekerjaan = txtPekerjaan.Text;  
 
-                // 3. Kirim ke controller
                 AutentikasiController auth = new AutentikasiController();
-                bool berhasil = auth.Register(userBaru, "Penyewa");
+                bool berhasil = auth.RegisterPenyewa(penyewaBaru);
 
                 if (berhasil)
                 {
                     MessageBox.Show("Akun Penyewa berhasil didaftarkan! Silakan masuk kembali.", "Registrasi Berhasil",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    this.Close(); // Tutup pop-up dan kembali ke vLogin
+                    this.Close();
                 }
             }
             catch (Exception ex)
@@ -72,7 +69,6 @@ namespace RentaniApp.Views
 
         private void btnKembali_Click(object sender, EventArgs e)
         {
-            // Menutup form register ini, otomatis layar balik ke vLogin yang ada di belakangnya
             this.Close();
         }
 
@@ -82,5 +78,7 @@ namespace RentaniApp.Views
         private void rNoHP_TextChanged(object sender, EventArgs e) { }
         private void rUname_TextChanged(object sender, EventArgs e) { }
         private void rPw_TextChanged(object sender, EventArgs e) { }
+        private void txtPekerjaan_TextChanged(object sender, EventArgs e) { }
+        private void txtNik_TextChanged(object sender, EventArgs e) { }
     }
 }

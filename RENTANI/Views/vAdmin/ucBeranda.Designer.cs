@@ -85,6 +85,7 @@
             Controls.Add(pnlAlat);
             Name = "ucBeranda";
             Size = new Size(1045, 680);
+            Load += ucBeranda_Load_1;
             pnlAlat.ResumeLayout(false);
             pnlAlat.PerformLayout();
             ResumeLayout(false);
