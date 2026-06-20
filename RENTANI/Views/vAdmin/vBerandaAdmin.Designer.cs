@@ -49,14 +49,14 @@
             panel3 = new Panel();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             panel2 = new Panel();
-            guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            btnRiwayat = new Guna.UI2.WinForms.Guna2Button();
+            btnPembayaran = new Guna.UI2.WinForms.Guna2Button();
+            btnVerifikasiSewa = new Guna.UI2.WinForms.Guna2Button();
+            btnKelolaAlat = new Guna.UI2.WinForms.Guna2Button();
             btnBeranda = new Guna.UI2.WinForms.Guna2Button();
             btnLogout = new Guna.UI2.WinForms.Guna2Button();
             label2 = new Label();
-            ucBeranda1 = new ucBeranda();
+            panelKonten = new Panel();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,10 +69,10 @@
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(guna2Panel1);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(guna2Button4);
-            panel1.Controls.Add(guna2Button3);
-            panel1.Controls.Add(guna2Button2);
-            panel1.Controls.Add(guna2Button1);
+            panel1.Controls.Add(btnRiwayat);
+            panel1.Controls.Add(btnPembayaran);
+            panel1.Controls.Add(btnVerifikasiSewa);
+            panel1.Controls.Add(btnKelolaAlat);
             panel1.Controls.Add(btnBeranda);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -128,113 +128,117 @@
             panel2.Size = new Size(300, 58);
             panel2.TabIndex = 0;
             // 
-            // guna2Button4
+            // btnRiwayat
             // 
-            guna2Button4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Button4.Animated = true;
-            guna2Button4.BackColor = Color.Transparent;
-            guna2Button4.BorderColor = Color.Transparent;
-            guna2Button4.BorderRadius = 10;
-            guna2Button4.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            guna2Button4.CheckedState.FillColor = Color.CornflowerBlue;
-            guna2Button4.Cursor = Cursors.Hand;
-            guna2Button4.CustomizableEdges = customizableEdges3;
-            guna2Button4.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button4.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button4.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button4.FillColor = Color.Transparent;
-            guna2Button4.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button4.ForeColor = Color.White;
-            guna2Button4.Location = new Point(22, 316);
-            guna2Button4.Name = "guna2Button4";
-            guna2Button4.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Button4.Size = new Size(218, 36);
-            guna2Button4.TabIndex = 4;
-            guna2Button4.Text = "Riwayat Penyewaan";
-            guna2Button4.TextAlign = HorizontalAlignment.Left;
-            guna2Button4.TextOffset = new Point(26, 0);
+            btnRiwayat.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnRiwayat.Animated = true;
+            btnRiwayat.BackColor = Color.Transparent;
+            btnRiwayat.BorderColor = Color.Transparent;
+            btnRiwayat.BorderRadius = 10;
+            btnRiwayat.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnRiwayat.CheckedState.FillColor = Color.CornflowerBlue;
+            btnRiwayat.Cursor = Cursors.Hand;
+            btnRiwayat.CustomizableEdges = customizableEdges3;
+            btnRiwayat.DisabledState.BorderColor = Color.DarkGray;
+            btnRiwayat.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnRiwayat.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnRiwayat.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnRiwayat.FillColor = Color.Transparent;
+            btnRiwayat.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRiwayat.ForeColor = Color.White;
+            btnRiwayat.Location = new Point(22, 326);
+            btnRiwayat.Name = "btnRiwayat";
+            btnRiwayat.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnRiwayat.Size = new Size(218, 40);
+            btnRiwayat.TabIndex = 4;
+            btnRiwayat.Text = "Riwayat Penyewaan";
+            btnRiwayat.TextAlign = HorizontalAlignment.Left;
+            btnRiwayat.TextOffset = new Point(26, 0);
+            btnRiwayat.Click += btnRiwayat_Click;
             // 
-            // guna2Button3
+            // btnPembayaran
             // 
-            guna2Button3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Button3.Animated = true;
-            guna2Button3.BackColor = Color.Transparent;
-            guna2Button3.BorderColor = Color.Transparent;
-            guna2Button3.BorderRadius = 10;
-            guna2Button3.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            guna2Button3.CheckedState.FillColor = Color.CornflowerBlue;
-            guna2Button3.Cursor = Cursors.Hand;
-            guna2Button3.CustomizableEdges = customizableEdges5;
-            guna2Button3.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button3.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button3.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button3.FillColor = Color.Transparent;
-            guna2Button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button3.ForeColor = Color.White;
-            guna2Button3.Location = new Point(22, 263);
-            guna2Button3.Name = "guna2Button3";
-            guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Button3.Size = new Size(218, 36);
-            guna2Button3.TabIndex = 3;
-            guna2Button3.Text = "Pembayaran";
-            guna2Button3.TextAlign = HorizontalAlignment.Left;
-            guna2Button3.TextOffset = new Point(26, 0);
+            btnPembayaran.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnPembayaran.Animated = true;
+            btnPembayaran.BackColor = Color.Transparent;
+            btnPembayaran.BorderColor = Color.Transparent;
+            btnPembayaran.BorderRadius = 10;
+            btnPembayaran.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnPembayaran.CheckedState.FillColor = Color.CornflowerBlue;
+            btnPembayaran.Cursor = Cursors.Hand;
+            btnPembayaran.CustomizableEdges = customizableEdges5;
+            btnPembayaran.DisabledState.BorderColor = Color.DarkGray;
+            btnPembayaran.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnPembayaran.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnPembayaran.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnPembayaran.FillColor = Color.Transparent;
+            btnPembayaran.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPembayaran.ForeColor = Color.White;
+            btnPembayaran.Location = new Point(22, 267);
+            btnPembayaran.Name = "btnPembayaran";
+            btnPembayaran.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnPembayaran.Size = new Size(218, 53);
+            btnPembayaran.TabIndex = 3;
+            btnPembayaran.Text = "Pembayaran";
+            btnPembayaran.TextAlign = HorizontalAlignment.Left;
+            btnPembayaran.TextOffset = new Point(26, 0);
+            btnPembayaran.Click += btnPembayaran_Click;
             // 
-            // guna2Button2
+            // btnVerifikasiSewa
             // 
-            guna2Button2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Button2.Animated = true;
-            guna2Button2.BackColor = Color.Transparent;
-            guna2Button2.BorderColor = Color.Transparent;
-            guna2Button2.BorderRadius = 10;
-            guna2Button2.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            guna2Button2.CheckedState.FillColor = Color.CornflowerBlue;
-            guna2Button2.Cursor = Cursors.Hand;
-            guna2Button2.CustomizableEdges = customizableEdges7;
-            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button2.FillColor = Color.Transparent;
-            guna2Button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button2.ForeColor = Color.White;
-            guna2Button2.Location = new Point(22, 209);
-            guna2Button2.Name = "guna2Button2";
-            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Button2.Size = new Size(218, 36);
-            guna2Button2.TabIndex = 2;
-            guna2Button2.Text = "Verifikasi Sewa";
-            guna2Button2.TextAlign = HorizontalAlignment.Left;
-            guna2Button2.TextOffset = new Point(26, 0);
+            btnVerifikasiSewa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnVerifikasiSewa.Animated = true;
+            btnVerifikasiSewa.BackColor = Color.Transparent;
+            btnVerifikasiSewa.BorderColor = Color.Transparent;
+            btnVerifikasiSewa.BorderRadius = 10;
+            btnVerifikasiSewa.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnVerifikasiSewa.CheckedState.FillColor = Color.CornflowerBlue;
+            btnVerifikasiSewa.Cursor = Cursors.Hand;
+            btnVerifikasiSewa.CustomizableEdges = customizableEdges7;
+            btnVerifikasiSewa.DisabledState.BorderColor = Color.DarkGray;
+            btnVerifikasiSewa.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnVerifikasiSewa.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnVerifikasiSewa.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnVerifikasiSewa.FillColor = Color.Transparent;
+            btnVerifikasiSewa.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVerifikasiSewa.ForeColor = Color.White;
+            btnVerifikasiSewa.Location = new Point(22, 225);
+            btnVerifikasiSewa.Name = "btnVerifikasiSewa";
+            btnVerifikasiSewa.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnVerifikasiSewa.Size = new Size(218, 44);
+            btnVerifikasiSewa.TabIndex = 2;
+            btnVerifikasiSewa.Text = "Verifikasi Sewa";
+            btnVerifikasiSewa.TextAlign = HorizontalAlignment.Left;
+            btnVerifikasiSewa.TextOffset = new Point(26, 0);
+            btnVerifikasiSewa.Click += guna2Button2_Click;
             // 
-            // guna2Button1
+            // btnKelolaAlat
             // 
-            guna2Button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            guna2Button1.Animated = true;
-            guna2Button1.BackColor = Color.Transparent;
-            guna2Button1.BorderColor = Color.Transparent;
-            guna2Button1.BorderRadius = 10;
-            guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            guna2Button1.CheckedState.FillColor = Color.CornflowerBlue;
-            guna2Button1.Cursor = Cursors.Hand;
-            guna2Button1.CustomizableEdges = customizableEdges9;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.FillColor = Color.Transparent;
-            guna2Button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button1.ForeColor = Color.White;
-            guna2Button1.Location = new Point(22, 156);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Button1.Size = new Size(218, 36);
-            guna2Button1.TabIndex = 1;
-            guna2Button1.Text = "Kelola Alat";
-            guna2Button1.TextAlign = HorizontalAlignment.Left;
-            guna2Button1.TextOffset = new Point(26, 0);
+            btnKelolaAlat.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnKelolaAlat.Animated = true;
+            btnKelolaAlat.BackColor = Color.Transparent;
+            btnKelolaAlat.BorderColor = Color.Transparent;
+            btnKelolaAlat.BorderRadius = 10;
+            btnKelolaAlat.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnKelolaAlat.CheckedState.FillColor = Color.CornflowerBlue;
+            btnKelolaAlat.Cursor = Cursors.Hand;
+            btnKelolaAlat.CustomizableEdges = customizableEdges9;
+            btnKelolaAlat.DisabledState.BorderColor = Color.DarkGray;
+            btnKelolaAlat.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnKelolaAlat.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnKelolaAlat.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnKelolaAlat.FillColor = Color.Transparent;
+            btnKelolaAlat.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnKelolaAlat.ForeColor = Color.White;
+            btnKelolaAlat.Location = new Point(22, 173);
+            btnKelolaAlat.Name = "btnKelolaAlat";
+            btnKelolaAlat.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnKelolaAlat.Size = new Size(218, 46);
+            btnKelolaAlat.TabIndex = 1;
+            btnKelolaAlat.Text = "Kelola Alat";
+            btnKelolaAlat.TextAlign = HorizontalAlignment.Left;
+            btnKelolaAlat.TextOffset = new Point(26, 0);
+            btnKelolaAlat.Click += btnKelolaAlat_Click;
             // 
             // btnBeranda
             // 
@@ -255,7 +259,7 @@
             btnBeranda.FillColor = Color.Transparent;
             btnBeranda.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBeranda.ForeColor = Color.White;
-            btnBeranda.Location = new Point(22, 107);
+            btnBeranda.Location = new Point(22, 124);
             btnBeranda.Name = "btnBeranda";
             btnBeranda.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnBeranda.Size = new Size(218, 43);
@@ -305,13 +309,13 @@
             label2.Text = "Beranda";
             label2.Click += label2_Click_1;
             // 
-            // ucBeranda1
+            // panelKonten
             // 
-            ucBeranda1.Dock = DockStyle.Fill;
-            ucBeranda1.Location = new Point(0, 0);
-            ucBeranda1.Name = "ucBeranda1";
-            ucBeranda1.Size = new Size(1312, 680);
-            ucBeranda1.TabIndex = 4;
+            panelKonten.Dock = DockStyle.Fill;
+            panelKonten.Location = new Point(0, 0);
+            panelKonten.Name = "panelKonten";
+            panelKonten.Size = new Size(1312, 680);
+            panelKonten.TabIndex = 4;
             // 
             // vBerandaAdmin
             // 
@@ -322,7 +326,7 @@
             Controls.Add(label2);
             Controls.Add(btnLogout);
             Controls.Add(panel1);
-            Controls.Add(ucBeranda1);
+            Controls.Add(panelKonten);
             Name = "vBerandaAdmin";
             Text = "Z";
             Load += vBerandaAdmin_Load;
@@ -336,10 +340,10 @@
 
         private Panel panel1;
         private Guna.UI2.WinForms.Guna2Button btnBeranda;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button4;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button btnKelolaAlat;
+        private Guna.UI2.WinForms.Guna2Button btnRiwayat;
+        private Guna.UI2.WinForms.Guna2Button btnPembayaran;
+        private Guna.UI2.WinForms.Guna2Button btnVerifikasiSewa;
         private Panel panel2;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Panel panel3;
@@ -347,6 +351,6 @@
         private Label label2;
         private Label label4;
         private Label label3;
-        private ucBeranda ucBeranda1;
+        private Panel panelKonten;
     }
 }

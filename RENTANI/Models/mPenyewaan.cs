@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using Npgsql;
 using RentaniApp.Helpers;
@@ -109,6 +110,33 @@ namespace RentaniApp.Models
             cmd.Parameters.AddWithValue("tgl", this.TglUlasan);
             cmd.Parameters.AddWithValue("id", this.IdPenyewaan);
             cmd.ExecuteNonQuery();
+        }
+
+        public static DataTable AmbilSemuaDataSewa()
+        {
+            DataTable dt = new DataTable();
+            using var conn = DbHelper.GetConnection();
+            conn.Open();
+
+            string query = @"
+        SELECT p.id_penyewaan AS IdPenyewaan, 
+               u.nama AS NamaPenyewa, 
+               a.nama_alat AS NamaAlat, 
+               p.tgl_mulai AS TglMulai, 
+               p.tgl_selesai AS TglSelesai, 
+               p.total_harga AS TotalHarga, 
+               p.status AS Status
+        FROM penyewaan p
+        JOIN penyewa py ON p.id_penyewa = py.id_penyewa
+        JOIN ""user"" u ON py.id_user = u.id_user
+        JOIN alat a ON p.id_alat = a.id_alat
+        ORDER BY p.id_penyewaan DESC";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+            using var da = new NpgsqlDataAdapter(cmd);
+            da.Fill(dt);
+
+            return dt;
         }
     }
 }

@@ -24,14 +24,16 @@ namespace RentaniApp.Views
             jumlahAlat.Text = alatController.GetTotalAlat().ToString();
         }
 
-
         private void jumlahAlat_Click(object sender, EventArgs e)
         {
         }
 
         private void pnlAlat_Paint(object sender, PaintEventArgs e)
         {
+        }
 
+        private void ucBeranda_Load_1(object sender, EventArgs e)
+        {
         }
     }
 }
