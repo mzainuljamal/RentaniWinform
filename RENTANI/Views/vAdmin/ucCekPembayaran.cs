@@ -17,6 +17,10 @@ namespace RentaniApp.Views.vAdmin
         public ucCekPembayaran()
         {
             InitializeComponent();
+
+            dgvPembayaran.ReadOnly = false;
+            dgvPembayaran.CellContentClick -= dgvPembayaran_CellContentClick; 
+            dgvPembayaran.CellContentClick += dgvPembayaran_CellContentClick;
         }
 
         private void ucCekPembayaran_Load(object sender, EventArgs e)
@@ -78,7 +82,7 @@ namespace RentaniApp.Views.vAdmin
                 string metode = rowView["MetodeBayar"]?.ToString() ?? "Transfer";
                 string status = rowView["StatusPembayaran"]?.ToString() ?? "";
 
-                if (dgvPembayaran.Columns[e.ColumnIndex].Name == "viewBuktiCol")
+                if (e.ColumnIndex == 5)
                 {
                     if (metode.Equals("COD", StringComparison.OrdinalIgnoreCase))
                     {
@@ -91,7 +95,8 @@ namespace RentaniApp.Views.vAdmin
                     return;
                 }
 
-                if (dgvPembayaran.Columns[e.ColumnIndex].Name == "btnVerifikasiCol")
+
+                if (e.ColumnIndex == 6)
                 {
                     if (status.Equals("Lunas", StringComparison.OrdinalIgnoreCase))
                     {
@@ -112,7 +117,7 @@ namespace RentaniApp.Views.vAdmin
                             strategi = new PembayaranTransfer();
                         }
 
-                        if (_pembayaranController.ProsesVerifikasiAdmin(strategi, idPenyewaan, idPembayaran))
+                        if (_pembayaranController.ProcessVerifikasiAdmin(strategi, idPenyewaan, idPembayaran))
                         {
                             MessageBox.Show($"Pembayaran via {metode} berhasil diverifikasi!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             TampilkanDataPembayaran();

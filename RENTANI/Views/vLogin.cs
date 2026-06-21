@@ -3,6 +3,7 @@ using RentaniApp.Controllers;
 using RentaniApp.Helpers;
 using RentaniApp.Models;
 using RentaniApp.Views.vAdmin;
+using RentaniApp.Views.vPenyewa;
 using System;
 using System.Windows.Forms;
 
@@ -69,7 +70,9 @@ namespace RentaniApp.Views
                 }
                 else
                 {
-                    MessageBox.Show("Login sebagai Penyewa berhasil! (Form Penyewa belum dihubungkan)", "Info Role", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    vBerandaPenyewa berandaPenyewa = new vBerandaPenyewa(userLogin.Nama);
+                    berandaPenyewa.Show();
+                    this.Hide();
                 }
             }
             else

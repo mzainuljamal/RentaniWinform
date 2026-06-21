@@ -20,8 +20,7 @@ namespace RentaniApp.Controllers
             }
         }
 
-        // Sudah diganti dari 'ProcessVerifikasiAdmin' menjadi 'ProsesVerifikasiAdmin'
-        public bool ProsesVerifikasiAdmin(IPembayaran strategiPembayaran, int idPenyewaan, int idBayar)
+        public bool ProcessVerifikasiAdmin(IPembayaran strategiPembayaran, int idPenyewaan, int idBayar)
         {
             try
             {
@@ -43,6 +42,19 @@ namespace RentaniApp.Controllers
             catch (Exception ex)
             {
                 MessageBox.Show($"Gagal memuat riwayat: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
+        }
+
+        public DataTable AmbilRiwayatSewaPenyewaController(int idPenyewa)
+        {
+            try
+            {
+                return Pembayaran.AmbilRiwayatSewaPenyewa(idPenyewa);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal memuat riwayat pembayaran: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
