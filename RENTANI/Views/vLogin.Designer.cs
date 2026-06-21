@@ -251,9 +251,10 @@
             Controls.Add(label3);
             Controls.Add(label2);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "vLogin";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "vLogin";
-            WindowState = FormWindowState.Maximized;
             Load += vLogin_Load_1;
             ResumeLayout(false);
             PerformLayout();

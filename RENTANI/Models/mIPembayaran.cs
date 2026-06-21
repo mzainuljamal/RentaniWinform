@@ -97,14 +97,14 @@ namespace RentaniApp.Models
                        u.nama AS NamaPenyewa,
                        a.nama_alat AS NamaAlat,
                        b.jumlah AS JumlahBayar,
-                       m.nama_metode AS MetodeBayar,
+                       COALESCE(m.nama_metode, 'Transfer Bank BRI') AS MetodeBayar,
                        b.status AS StatusPembayaran
                 FROM pembayaran b
                 JOIN penyewaan p ON b.id_penyewaan = p.id_penyewaan
                 JOIN penyewa py ON p.id_penyewa = py.id_penyewa
                 JOIN ""user"" u ON py.id_user = u.id_user
                 JOIN alat a ON p.id_alat = a.id_alat
-                JOIN metode_pembayaran m ON b.id_metode = m.id_metode
+                LEFT JOIN metode_pembayaran m ON b.id_metode = m.id_metode
                 ORDER BY b.id_bayar DESC";
 
             using var cmd = new NpgsqlCommand(query, conn);
@@ -120,21 +120,46 @@ namespace RentaniApp.Models
             conn.Open();
 
             string query = @"
-        SELECT p.id_penyewaan AS IdSewa,
-               u.nama AS NamaPenyewa,
-               a.nama_alat AS NamaAlat,
-               CONCAT(TO_CHAR(p.tgl_mulai, 'YYYY-MM-DD'), ' ➔ ', TO_CHAR(p.tgl_selesai, 'YYYY-MM-DD')) AS PeriodeSewa,
-               p.total_harga AS TotalHarga,
-               p.status AS StatusSewa,
-               COALESCE(b.status, 'Belum Bayar') AS StatusBayar
-        FROM penyewaan p
-        JOIN penyewa py ON p.id_penyewa = py.id_penyewa
-        JOIN ""user"" u ON py.id_user = u.id_user
-        JOIN alat a ON p.id_alat = a.id_alat
-        LEFT JOIN pembayaran b ON p.id_penyewaan = b.id_penyewaan
-        ORDER BY p.id_penyewaan DESC";
+                SELECT p.id_penyewaan AS IdSewa,
+                       u.nama AS NamaPenyewa,
+                       a.nama_alat AS NamaAlat,
+                       CONCAT(TO_CHAR(p.tgl_mulai, 'YYYY-MM-DD'), ' ➔ ', TO_CHAR(p.tgl_selesai, 'YYYY-MM-DD')) AS PeriodeSewa,
+                       p.total_harga AS TotalHarga,
+                       p.status AS StatusSewa,
+                       COALESCE(b.status, 'Menunggu Konfirmasi') AS StatusBayar
+                FROM penyewaan p
+                JOIN penyewa py ON p.id_penyewa = py.id_penyewa
+                JOIN ""user"" u ON py.id_user = u.id_user
+                JOIN alat a ON p.id_alat = a.id_alat
+                LEFT JOIN pembayaran b ON p.id_penyewaan = b.id_penyewaan
+                ORDER BY p.id_penyewaan DESC";
 
             using var cmd = new NpgsqlCommand(query, conn);
+            using var da = new NpgsqlDataAdapter(cmd);
+            da.Fill(dt);
+            return dt;
+        }
+
+        public static DataTable AmbilRiwayatSewaPenyewa(int idPenyewa)
+        {
+            DataTable dt = new DataTable();
+            using var conn = DbHelper.GetConnection();
+            conn.Open();
+
+            string query = @"
+                SELECT p.id_penyewaan AS IdSewa,
+                       a.nama_alat AS AlatPertanian,
+                       p.total_harga AS JumlahTagihan,
+                       COALESCE(b.status, 'Menunggu Konfirmasi') AS StatusBayar
+                FROM penyewaan p
+                JOIN penyewa py ON p.id_penyewa = py.id_penyewa
+                JOIN alat a ON p.id_alat = a.id_alat
+                LEFT JOIN pembayaran b ON p.id_penyewaan = b.id_penyewaan
+                WHERE p.id_penyewa = @id_penyewa
+                ORDER BY p.id_penyewaan DESC";
+
+            using var cmd = new NpgsqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("id_penyewa", idPenyewa);
             using var da = new NpgsqlDataAdapter(cmd);
             da.Fill(dt);
             return dt;

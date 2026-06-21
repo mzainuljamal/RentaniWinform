@@ -5,7 +5,7 @@ namespace RentaniApp.Models
     public class mRating
     {
         public int IdRating { get; set; }
-        public int Skor { get; set; } // 1 sampai 5 bintang
+        public int Skor { get; set; }
         public string Keterangan { get; set; }
 
         public mRating() { }

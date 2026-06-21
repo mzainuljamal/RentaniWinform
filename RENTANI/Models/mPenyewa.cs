@@ -26,7 +26,6 @@ namespace RentaniApp.Models
 
             try
             {
-                // 1. Insert ke tabel inti: user
                 string queryUser = @"INSERT INTO ""user"" (username, password, nama, email, no_hp, alamat, role, created_at)
                                      VALUES (@username, @password, @nama, @email, @no_hp, @alamat, 'Penyewa', @created_at)
                                      RETURNING id_user";

@@ -52,7 +52,6 @@ namespace RentaniApp.Controllers
             }
         }
 
-        // MVC CONCEPT: Controller mengarahkan instansiasi model sesuai Polimorfisme
         public bool RegisterPenyewa(Penyewa penyewa)
         {
             if (IsUsernameTaken(penyewa.Username))
@@ -66,7 +65,6 @@ namespace RentaniApp.Controllers
                 MessageBox.Show("Email sudah digunakan.", "Registrasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
 
             return penyewa.SimpanKeDatabase();
         }

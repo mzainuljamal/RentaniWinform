@@ -1,11 +1,9 @@
-﻿using RentaniApp.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using RentaniApp.Controllers;
+using RentaniApp.Models;
 
 namespace RentaniApp.Views
 {
@@ -21,19 +19,43 @@ namespace RentaniApp.Views
 
         private void ucBeranda_Load(object sender, EventArgs e)
         {
-            jumlahAlat.Text = alatController.GetTotalAlat().ToString();
+            MuatDataDashboardAdmin();
         }
 
-        private void jumlahAlat_Click(object sender, EventArgs e)
+        public void MuatDataDashboardAdmin()
         {
-        }
+            try
+            {
+                Dictionary<string, object> ringkasan = Penyewaan.AmbilRingkasanBisnisAdmin();
 
-        private void pnlAlat_Paint(object sender, PaintEventArgs e)
-        {
-        }
+                lblValAlat.Text = ringkasan["TotalAlat"].ToString();
+                lblValSewa.Text = ringkasan["PengajuanBaru"].ToString();
 
-        private void ucBeranda_Load_1(object sender, EventArgs e)
-        {
+                decimal pendapatan = Convert.ToDecimal(ringkasan["Pendapatan"]);
+                if (pendapatan >= 1000000)
+                {
+                    lblValIncome.Text = $"Rp {(pendapatan / 1000000):N1}M";
+                }
+                else
+                {
+                    lblValIncome.Text = $"Rp {(pendapatan / 1000):N0}K";
+                }
+
+                Dictionary<string, object> ringkasanUlasan = Penyewaan.AmbilRingkasanUlasanAdmin();
+                double rating = Convert.ToDouble(ringkasanUlasan["RatingRataRata"]);
+                lblValRating.Text = rating > 0 ? $"{rating:N1} ★" : "0.0 ★";
+
+                DataTable dtSewa = Penyewaan.AmbilSemuaDataSewa();
+                dgvPengajuan.DataSource = dtSewa;
+
+                dgvPengajuan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvPengajuan.ReadOnly = true;
+                dgvPengajuan.AllowUserToAddRows = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal menyinkronkan data database ke UI: {ex.Message}", "Bypass Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
