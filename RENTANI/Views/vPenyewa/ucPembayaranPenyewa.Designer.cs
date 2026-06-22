@@ -36,7 +36,9 @@
             pnlPerluBayar.SuspendLayout();
             pnlTotalBerhasil.SuspendLayout();
             SuspendLayout();
-
+            // 
+            // Text
+            // 
             Text.AutoSize = true;
             Text.BackColor = Color.Transparent;
             Text.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -45,7 +47,9 @@
             Text.Size = new Size(459, 38);
             Text.TabIndex = 1;
             Text.Text = "Tagihan dan Riwayat Pembayaran";
-
+            // 
+            // dgvPembayaran
+            // 
             dgvPembayaran.AllowUserToAddRows = false;
             dgvPembayaran.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
@@ -82,7 +86,9 @@
             dgvPembayaran.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
             dgvPembayaran.ThemeStyle.RowsStyle.Height = 25;
             dgvPembayaran.CellContentClick += dgvPembayaran_CellContentClick;
-
+            // 
+            // pnlPerluBayar
+            // 
             pnlPerluBayar.BackColor = Color.White;
             pnlPerluBayar.BorderRadius = 10;
             pnlPerluBayar.Controls.Add(lblPerluBayar);
@@ -93,7 +99,9 @@
             pnlPerluBayar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             pnlPerluBayar.Size = new Size(440, 85);
             pnlPerluBayar.TabIndex = 3;
-
+            // 
+            // lblPerluBayar
+            // 
             lblPerluBayar.AutoSize = true;
             lblPerluBayar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblPerluBayar.ForeColor = Color.Red;
@@ -102,7 +110,9 @@
             lblPerluBayar.Size = new Size(140, 32);
             lblPerluBayar.TabIndex = 0;
             lblPerluBayar.Text = "0 Transaksi";
-
+            // 
+            // lblTitlePerlu
+            // 
             lblTitlePerlu.AutoSize = true;
             lblTitlePerlu.Font = new Font("Segoe UI", 9F);
             lblTitlePerlu.ForeColor = Color.Gray;
@@ -111,7 +121,9 @@
             lblTitlePerlu.Size = new Size(201, 25);
             lblTitlePerlu.TabIndex = 1;
             lblTitlePerlu.Text = "Menunggu Pembayaran";
-
+            // 
+            // pnlTotalBerhasil
+            // 
             pnlTotalBerhasil.BackColor = Color.White;
             pnlTotalBerhasil.BorderRadius = 10;
             pnlTotalBerhasil.Controls.Add(lblTotalBerhasilBayar);
@@ -123,6 +135,9 @@
             pnlTotalBerhasil.Size = new Size(440, 85);
             pnlTotalBerhasil.TabIndex = 4;
 
+            // 
+            // lblTotalBerhasilBayar
+            // 
             lblTotalBerhasilBayar.AutoSize = true;
             lblTotalBerhasilBayar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblTotalBerhasilBayar.ForeColor = Color.Green;
@@ -131,7 +146,9 @@
             lblTotalBerhasilBayar.Size = new Size(66, 32);
             lblTotalBerhasilBayar.TabIndex = 0;
             lblTotalBerhasilBayar.Text = "Rp 0";
-
+            // 
+            // lblTitleBerhasil
+            // 
             lblTitleBerhasil.AutoSize = true;
             lblTitleBerhasil.Font = new Font("Segoe UI", 9F);
             lblTitleBerhasil.ForeColor = Color.Gray;
@@ -140,7 +157,9 @@
             lblTitleBerhasil.Size = new Size(180, 25);
             lblTitleBerhasil.TabIndex = 1;
             lblTitleBerhasil.Text = "Total Berhasil Dibayar";
-
+            // 
+            // ucPembayaranPenyewa
+            // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(248, 249, 250);

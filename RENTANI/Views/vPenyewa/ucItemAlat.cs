@@ -46,18 +46,26 @@ namespace RentaniApp.Views.vPenyewa
                 }
             }
 
-            if (_alat.Stok > 0)
+            if (_alat.Status == "Maintenance" || _alat.Status == "Perbaikan")
+            {
+                lblStok.Text = "Maintenance";
+                lblStok.ForeColor = Color.Orange;
+                btnSewaSekarang.Enabled = false;
+                btnSewaSekarang.Text = "Perbaikan";
+            }
+            else if (_alat.Status == "Disewa" || _alat.Status == "Rusak" || _alat.Stok <= 0)
+            {
+                lblStok.Text = _alat.Status == "Disewa" ? "Sedang Disewa" : "Stok Habis";
+                lblStok.ForeColor = Color.Red;
+                btnSewaSekarang.Enabled = false;
+                btnSewaSekarang.Text = "Habis";
+            }
+            else
             {
                 lblStok.Text = $"Tersedia: {_alat.Stok} Unit";
                 lblStok.ForeColor = Color.FromArgb(40, 167, 69);
                 btnSewaSekarang.Enabled = true;
-            }
-            else
-            {
-                lblStok.Text = "Stok Habis";
-                lblStok.ForeColor = Color.Red;
-                btnSewaSekarang.Enabled = false;
-                btnSewaSekarang.Text = "Habis";
+                btnSewaSekarang.Text = "Sewa";
             }
         }
 
@@ -67,6 +75,10 @@ namespace RentaniApp.Views.vPenyewa
         }
 
         private void ucItemAlat_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void picAlat_Click(object sender, EventArgs e)
         {
         }
     }

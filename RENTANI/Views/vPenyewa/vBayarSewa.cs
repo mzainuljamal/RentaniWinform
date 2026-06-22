@@ -11,7 +11,7 @@ namespace RentaniApp.Views.vPenyewa
     {
         private readonly int _idSewa;
         private readonly decimal _totalHarga;
-        private byte[] _buktiTransferBytes = null;
+        private string _pathBuktiTransfer = string.Empty;
 
         public vBayarSewa(int idSewa, string namaAlat, string periode, decimal totalHarga)
         {
@@ -60,7 +60,7 @@ namespace RentaniApp.Views.vPenyewa
             {
                 lblRekeningInfo.Text = "Bayar Tunai di Lokasi Saat Ambil Alat";
                 pnlUploadBukti.Enabled = false;
-                _buktiTransferBytes = null;
+                _pathBuktiTransfer = string.Empty;
                 lblNamaFileBukti.Text = "Tidak membutuhkan berkas";
             }
         }
@@ -73,7 +73,7 @@ namespace RentaniApp.Views.vPenyewa
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     lblNamaFileBukti.Text = Path.GetFileName(ofd.FileName);
-                    _buktiTransferBytes = File.ReadAllBytes(ofd.FileName);
+                    _pathBuktiTransfer = ofd.FileName;
                 }
             }
         }
@@ -85,17 +85,19 @@ namespace RentaniApp.Views.vPenyewa
         private void vBayarSewa_Load(object sender, EventArgs e)
         {
         }
+
         private void btnKonfirmasiBayar_Click(object sender, EventArgs e)
         {
             if (cmbMetodeBayar.SelectedItem == null) return;
             string metodeTeks = cmbMetodeBayar.SelectedItem.ToString();
 
-            if (!metodeTeks.Contains("COD") && _buktiTransferBytes == null)
+            if (!metodeTeks.Contains("COD") && string.IsNullOrEmpty(_pathBuktiTransfer))
             {
                 MessageBox.Show("Silakan unggah bukti transfer terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int idMetode = 1; // Default BRI
+
+            int idMetode = 1;
             if (metodeTeks.Contains("BCA")) idMetode = 1;
             else if (metodeTeks.Contains("QRIS")) idMetode = 2;
             else if (metodeTeks.Contains("COD")) idMetode = 3;
@@ -106,32 +108,31 @@ namespace RentaniApp.Views.vPenyewa
                 conn.Open();
                 using var trans = conn.BeginTransaction();
 
-                // FIX: Menyesuaikan nama kolom riil PostgreSQL milik lu (status, id_metode, bukti_transfer)
                 string queryBayar = @"UPDATE pembayaran 
-                                      SET status = 'Lunas', id_metode = @id_metode, tgl_bayar = @tgl
+                                      SET status = 'Menunggu Konfirmasi', id_metode = @id_metode, tgl_bayar = @tgl, bukti_transfer = @bukti
                                       WHERE id_penyewaan = @id_sewa";
 
                 using var cmdBayar = new NpgsqlCommand(queryBayar, conn, trans);
                 cmdBayar.Parameters.AddWithValue("id_metode", idMetode);
                 cmdBayar.Parameters.AddWithValue("tgl", DateTime.Now);
+                cmdBayar.Parameters.AddWithValue("bukti", string.IsNullOrEmpty(_pathBuktiTransfer) ? (object)DBNull.Value : _pathBuktiTransfer);
                 cmdBayar.Parameters.AddWithValue("id_sewa", _idSewa);
                 cmdBayar.ExecuteNonQuery();
 
-                // Ubah status sewa menjadi Disetujui
-                string querySewa = "UPDATE penyewaan SET status = 'Disetujui' WHERE id_penyewaan = @id_sewa";
+                string querySewa = "UPDATE penyewaan SET status = 'Menunggu' WHERE id_penyewaan = @id_sewa";
                 using var cmdSewa = new NpgsqlCommand(querySewa, conn, trans);
                 cmdSewa.Parameters.AddWithValue("id_sewa", _idSewa);
                 cmdSewa.ExecuteNonQuery();
 
                 trans.Commit();
 
-                MessageBox.Show("Pembayaran Berhasil Dikonfirmasi!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Bukti pembayaran berhasil dikirim! Silakan tunggu verifikasi dan persetujuan dari Admin.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Gagal memproses pembayaran: {ex.Message}", "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Gagal memproses konfirmasi pembayaran: {ex.Message}", "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

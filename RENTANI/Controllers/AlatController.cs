@@ -101,6 +101,11 @@ namespace RentaniApp.Controllers
             return Alat.AmbilSemua();
         }
 
+        public List<Alat> AmbilKatalogKetersediaan()
+        {
+            return Alat.AmbilKatalogKetersediaan();
+        }
+
         public int GetTotalAlat()
         {
             int total = 0;

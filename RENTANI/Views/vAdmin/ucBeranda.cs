@@ -41,10 +41,6 @@ namespace RentaniApp.Views
                     lblValIncome.Text = $"Rp {(pendapatan / 1000):N0}K";
                 }
 
-                Dictionary<string, object> ringkasanUlasan = Penyewaan.AmbilRingkasanUlasanAdmin();
-                double rating = Convert.ToDouble(ringkasanUlasan["RatingRataRata"]);
-                lblValRating.Text = rating > 0 ? $"{rating:N1} ★" : "0.0 ★";
-
                 DataTable dtSewa = Penyewaan.AmbilSemuaDataSewa();
                 dgvPengajuan.DataSource = dtSewa;
 

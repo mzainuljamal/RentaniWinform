@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using RentaniApp.Controllers;
@@ -19,7 +20,7 @@ namespace RentaniApp.Views.vAdmin
             InitializeComponent();
 
             dgvPembayaran.ReadOnly = false;
-            dgvPembayaran.CellContentClick -= dgvPembayaran_CellContentClick; 
+            dgvPembayaran.CellContentClick -= dgvPembayaran_CellContentClick;
             dgvPembayaran.CellContentClick += dgvPembayaran_CellContentClick;
         }
 
@@ -90,11 +91,19 @@ namespace RentaniApp.Views.vAdmin
                     }
                     else
                     {
-                        MessageBox.Show($"Menampilkan file lampiran bukti transfer milik {namaPenyewa} (ID Pembayaran: {idPembayaran})", "Bukti Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string pathGambar = string.Empty;
+                        if (rowView.Row.Table.Columns.Contains("BuktiBayar") && rowView["BuktiBayar"] != DBNull.Value)
+                        {
+                            pathGambar = rowView["BuktiBayar"].ToString();
+                        }
+
+                        using (FrmPreviewBukti popUp = new FrmPreviewBukti(pathGambar, idPembayaran.ToString(), namaPenyewa))
+                        {
+                            popUp.ShowDialog(this);
+                        }
                     }
                     return;
                 }
-
 
                 if (e.ColumnIndex == 6)
                 {
@@ -138,6 +147,10 @@ namespace RentaniApp.Views.vAdmin
             {
                 dgvPembayaran.Cursor = Cursors.Default;
             }
+        }
+
+        private void dgvPembayaran_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }

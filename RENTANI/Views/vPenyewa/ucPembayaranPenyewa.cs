@@ -1,8 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using RentaniApp.Controllers;
+﻿using RentaniApp.Controllers;
+using RentaniApp.Helpers;
 using RentaniApp.Models;
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace RentaniApp.Views.vPenyewa
 {
@@ -98,14 +100,13 @@ namespace RentaniApp.Views.vPenyewa
                 ReadOnly = true
             });
 
-            DataGridViewButtonColumn btnAksi = new DataGridViewButtonColumn
+            dgvPembayaran.Columns.Add(new DataGridViewButtonColumn
             {
                 HeaderText = "Aksi",
                 Name = "GridAksi",
                 Text = "Aksi",
                 UseColumnTextForButtonValue = false
-            };
-            dgvPembayaran.Columns.Add(btnAksi);
+            });
         }
 
         private void dgvPembayaran_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -137,7 +138,36 @@ namespace RentaniApp.Views.vPenyewa
 
                 if (status == "Lunas")
                 {
-                    MessageBox.Show($"Menampilkan bukti transaksi untuk ID Sewa: {idSewa}\nStatus: Lunas Terverifikasi.", "Bukti Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var curRow = ((DataRowView)dgvPembayaran.Rows[e.RowIndex].DataBoundItem).Row;
+                    if (curRow["BuktiBayar"] != DBNull.Value && !string.IsNullOrWhiteSpace(curRow["BuktiBayar"].ToString()))
+                    {
+                        string pathGambar = curRow["BuktiBayar"].ToString();
+                        try
+                        {
+                            Form popUpGambar = new Form
+                            {
+                                Text = $"Bukti Pembayaran ID Sewa: {idSewa}",
+                                Size = new Size(500, 600),
+                                StartPosition = FormStartPosition.CenterScreen
+                            };
+                            PictureBox pic = new PictureBox
+                            {
+                                ImageLocation = pathGambar,
+                                Dock = DockStyle.Fill,
+                                SizeMode = PictureBoxSizeMode.Zoom
+                            };
+                            popUpGambar.Controls.Add(pic);
+                            popUpGambar.ShowDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Gagal memuat file gambar dari path: {pathGambar}\nError: {ex.Message}", "Error Gambar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tidak ada file path bukti transfer (Metode COD / data kosong).", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {

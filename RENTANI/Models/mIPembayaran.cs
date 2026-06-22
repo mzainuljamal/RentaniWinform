@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using Npgsql;
@@ -79,7 +80,7 @@ namespace RentaniApp.Models
         public int IdPenyewaan { get; set; }
         public int IdMetode { get; set; }
         public decimal Jumlah { get; set; }
-        public string BuktiTransfer { get; set; }
+        public string BuktiBayar { get; set; }
         public DateTime TglBayar { get; set; }
         public string Status { get; set; }
 
@@ -98,7 +99,8 @@ namespace RentaniApp.Models
                        a.nama_alat AS NamaAlat,
                        b.jumlah AS JumlahBayar,
                        COALESCE(m.nama_metode, 'Transfer Bank BRI') AS MetodeBayar,
-                       b.status AS StatusPembayaran
+                       b.status AS StatusPembayaran,
+                       b.bukti_transfer AS BuktiBayar
                 FROM pembayaran b
                 JOIN penyewaan p ON b.id_penyewaan = p.id_penyewaan
                 JOIN penyewa py ON p.id_penyewa = py.id_penyewa
@@ -150,7 +152,8 @@ namespace RentaniApp.Models
                 SELECT p.id_penyewaan AS IdSewa,
                        a.nama_alat AS AlatPertanian,
                        p.total_harga AS JumlahTagihan,
-                       COALESCE(b.status, 'Menunggu Konfirmasi') AS StatusBayar
+                       COALESCE(b.status, 'Menunggu Konfirmasi') AS StatusBayar,
+                       b.bukti_transfer AS BuktiBayar
                 FROM penyewaan p
                 JOIN penyewa py ON p.id_penyewa = py.id_penyewa
                 JOIN alat a ON p.id_alat = a.id_alat

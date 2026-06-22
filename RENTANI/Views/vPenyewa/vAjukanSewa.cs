@@ -45,27 +45,47 @@ namespace RentaniApp.Views.vPenyewa
 
         private void dtpMulai_ValueChanged(object sender, EventArgs e)
         {
+            if (dtpMulai.Value.Date < DateTime.Today)
+            {
+                MessageBox.Show("Tanggal mulai sewa tidak boleh memilih tanggal di masa lalu!", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpMulai.Value = DateTime.Today;
+            }
             HitungOtomatisBiaya();
         }
 
         private void dtpSelesai_ValueChanged(object sender, EventArgs e)
         {
+            if (dtpSelesai.Value.Date < dtpMulai.Value.Date)
+            {
+                MessageBox.Show("Tanggal selesai sewa tidak boleh mendahului tanggal mulai sewa!", "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpSelesai.Value = dtpMulai.Value;
+            }
             HitungOtomatisBiaya();
         }
 
         private void btnAjukanSewa_Click(object sender, EventArgs e)
         {
+            if (dtpMulai.Value.Date < DateTime.Today)
+            {
+                MessageBox.Show("Tanggal mulai sewa tidak valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string metodeBayar = cmbMetodeBayar.SelectedItem?.ToString() ?? "Transfer Bank BRI";
             string catatan = txtCatatan.Text;
 
             int idMetode = 1;
+            bool langsungLunas = false;
+
             if (metodeBayar.Contains("QRIS"))
             {
                 idMetode = 2;
+                langsungLunas = true;
             }
             else if (metodeBayar.Contains("COD"))
             {
                 idMetode = 3;
+                langsungLunas = false;
             }
 
             bool sukses = _controller.KirimPengajuanSewa(
@@ -74,13 +94,17 @@ namespace RentaniApp.Views.vPenyewa
                 dtpSelesai.Value,
                 idMetode,
                 catatan,
-                _alatDiSewa.HargaPerHari
+                _alatDiSewa.HargaPerHari,
+                langsungLunas
             );
 
             if (sukses)
             {
-                MessageBox.Show("Pengajuan sewa berhasil dikirim! Silakan tunggu verifikasi admin.", "Sukses",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string pesan = langsungLunas
+                    ? "Pembayaran berhasil diverifikasi via QRIS! Transaksi sewa langsung disetujui otomatis."
+                    : "Pengajuan sewa berhasil dikirim! Silakan tunggu verifikasi admin.";
+
+                MessageBox.Show(pesan, "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -97,10 +121,6 @@ namespace RentaniApp.Views.vPenyewa
         private void txtCatatan_TextChanged(object sender, EventArgs e) { }
         private void lblDetailDurasi_Click(object sender, EventArgs e) { }
         private void lblTotalHarga_Click(object sender, EventArgs e) { }
-
-        private void vAjukanSewa_Load(object sender, EventArgs e)
-        {
-
-        }
+        private void vAjukanSewa_Load(object sender, EventArgs e) { }
     }
 }

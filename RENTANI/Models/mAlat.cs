@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Npgsql;
+using NpgsqlTypes;
 using RentaniApp.Helpers;
 
 namespace RentaniApp.Models
@@ -51,7 +52,11 @@ namespace RentaniApp.Models
                 cmd.Parameters.AddWithValue("harga_per_hari", this.HargaPerHari);
                 cmd.Parameters.AddWithValue("stok", this.Stok);
                 cmd.Parameters.AddWithValue("kondisi", this.Kondisi ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("gambar_data", this.GambarPath ?? (object)DBNull.Value);
+
+                var paramGambar = new NpgsqlParameter("gambar_data", NpgsqlDbType.Bytea);
+                paramGambar.Value = this.GambarPath ?? (object)DBNull.Value;
+                cmd.Parameters.Add(paramGambar);
+
                 cmd.Parameters.AddWithValue("status", this.Status ?? "Tersedia");
 
                 cmd.ExecuteNonQuery();
@@ -89,7 +94,11 @@ namespace RentaniApp.Models
                 cmd.Parameters.AddWithValue("harga_per_hari", this.HargaPerHari);
                 cmd.Parameters.AddWithValue("stok", this.Stok);
                 cmd.Parameters.AddWithValue("kondisi", this.Kondisi ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("gambar_data", this.GambarPath ?? (object)DBNull.Value);
+
+                var paramGambar = new NpgsqlParameter("gambar_data", NpgsqlDbType.Bytea);
+                paramGambar.Value = this.GambarPath ?? (object)DBNull.Value;
+                cmd.Parameters.Add(paramGambar);
+
                 cmd.Parameters.AddWithValue("status", this.Status ?? "Tersedia");
 
                 cmd.ExecuteNonQuery();
@@ -135,6 +144,45 @@ namespace RentaniApp.Models
                                         k.nama_kategori
                                  FROM alat a
                                  LEFT JOIN kategori_alat k ON a.id_kategori = k.id_kategori";
+
+                using var cmd = new NpgsqlCommand(query, conn);
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    daftar.Add(new Alat
+                    {
+                        IdAlat = reader.GetInt32(0),
+                        IdPemilik = reader.GetInt32(1),
+                        IdKategori = reader.GetInt32(2),
+                        NamaAlat = reader.GetString(3),
+                        Deskripsi = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                        HargaPerHari = reader.GetDecimal(5),
+                        Stok = reader.GetInt32(6),
+                        Kondisi = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                        GambarPath = reader.IsDBNull(8) ? null : (byte[])reader["gambar_data"],
+                        Status = reader.IsDBNull(9) ? "Tersedia" : reader.GetString(9),
+                        Kategori = new KategoriAlat(reader.GetInt32(2), reader.IsDBNull(10) ? "-" : reader.GetString(10))
+                    });
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            return daftar;
+        }
+
+        public static List<Alat> AmbilKatalogKetersediaan()
+        {
+            var daftar = new List<Alat>();
+            try
+            {
+                using var conn = DbHelper.GetConnection();
+                conn.Open();
+                string query = @"SELECT a.id_alat, a.id_pemilik, a.id_kategori, a.nama_alat, a.deskripsi, 
+                                        a.harga_per_hari, a.stok, a.kondisi, a.gambar_data, a.status,
+                                        k.nama_kategori
+                                 FROM alat a
+                                 LEFT JOIN kategori_alat k ON a.id_kategori = k.id_kategori
+                                 WHERE a.stok > 0 
+                                   AND a.status NOT IN ('Maintenance', 'Disewa', 'Perbaikan', 'Rusak')";
 
                 using var cmd = new NpgsqlCommand(query, conn);
                 using var reader = cmd.ExecuteReader();

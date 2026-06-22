@@ -67,5 +67,10 @@ namespace RentaniApp.Views.vPenyewa
                 MessageBox.Show("Gagal memuat katalog: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void pnlRingkasan_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

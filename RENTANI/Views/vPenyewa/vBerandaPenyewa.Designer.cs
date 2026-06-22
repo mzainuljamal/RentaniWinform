@@ -55,6 +55,8 @@
             FormatSapaanRTB = new RichTextBox();
             btnLogout = new Guna.UI2.WinForms.Guna2Button();
             lblSapaan = new Label();
+            label4 = new Label();
+            label3 = new Label();
             pnlDashboard.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
@@ -63,6 +65,8 @@
             // 
             pnlDashboard.BackgroundImage = (Image)resources.GetObject("pnlDashboard.BackgroundImage");
             pnlDashboard.BackgroundImageLayout = ImageLayout.Stretch;
+            pnlDashboard.Controls.Add(label4);
+            pnlDashboard.Controls.Add(label3);
             pnlDashboard.Controls.Add(btnPenyewaan);
             pnlDashboard.Controls.Add(btnPembayaran);
             pnlDashboard.Controls.Add(btnKatalog);
@@ -271,6 +275,30 @@
             lblSapaan.TabIndex = 6;
             lblSapaan.Click += lblSapaan_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonHighlight;
+            label4.Location = new Point(21, 54);
+            label4.Name = "label4";
+            label4.Size = new Size(146, 19);
+            label4.TabIndex = 10;
+            label4.Text = "Dashboard Penyewa";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI Black", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(12, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(167, 45);
+            label3.TabIndex = 9;
+            label3.Text = "RENTANI";
+            // 
             // vBerandaPenyewa
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -285,6 +313,7 @@
             Text = "Form1";
             Load += vBerandaPenyewa_Load;
             pnlDashboard.ResumeLayout(false);
+            pnlDashboard.PerformLayout();
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             ResumeLayout(false);
@@ -302,5 +331,7 @@
         private Label lblSapaan;
         private Guna.UI2.WinForms.Guna2Button btnLogout;
         private RichTextBox FormatSapaanRTB;
+        private Label label4;
+        private Label label3;
     }
 }

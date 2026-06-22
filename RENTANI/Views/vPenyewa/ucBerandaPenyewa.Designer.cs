@@ -90,6 +90,7 @@
             pnlRingkasan.ShadowDecoration.CustomizableEdges = customizableEdges10;
             pnlRingkasan.Size = new Size(878, 142);
             pnlRingkasan.TabIndex = 1;
+            pnlRingkasan.Paint += pnlRingkasan_Paint;
             // 
             // guna2Panel3
             // 
@@ -317,7 +318,7 @@
             lblKatalogJudul.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblKatalogJudul.Location = new Point(72, 235);
             lblKatalogJudul.Name = "lblKatalogJudul";
-            lblKatalogJudul.Size = new Size(295, 32);
+            lblKatalogJudul.Size = new Size(272, 32);
             lblKatalogJudul.TabIndex = 6;
             lblKatalogJudul.Text = "Katalog Alat Pertanian";
             // 

@@ -18,13 +18,34 @@ namespace RentaniApp.Models
         public decimal TotalHarga { get; set; }
         public string Status { get; set; }
         public string Catatan { get; set; }
-        public int? IdRating { get; set; }
-        public string KomentarUlasan { get; set; }
-        public DateTime? TglUlasan { get; set; }
 
         public Penyewaan() { }
 
-        // FUNGSI PENYELAMAT: Mengubah ID User dari login session menjadi ID Penyewa asli di database
+        public static bool HapusSemuaDataEksperimen()
+        {
+            try
+            {
+                using var conn = DbHelper.GetConnection();
+                conn.Open();
+                using var trans = conn.BeginTransaction();
+
+                string query = "TRUNCATE TABLE penyewaan RESTART IDENTITY CASCADE";
+                using (var cmd = new NpgsqlCommand(query, conn, trans))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                trans.Commit();
+                MessageBox.Show("Semua data penyewaan dan pembayaran berhasil dihapus bersih untuk eksperimen!", "Sukses Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal mengosongkan database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
         public static int AmbilIdPenyewaDariUser(int idUser)
         {
             try
@@ -53,11 +74,100 @@ namespace RentaniApp.Models
 
         public void Verifikasi(bool ok)
         {
-            this.Status = ok ? "Disetujui" : "Ditolak";
-            UpdateStatusKeDb();
+            try
+            {
+                using var conn = DbHelper.GetConnection();
+                conn.Open();
+                using var trans = conn.BeginTransaction();
+
+                string queryData = "SELECT id_alat, tgl_mulai, tgl_selesai, status FROM penyewaan WHERE id_penyewaan = @id";
+                int idAlat = 0;
+                DateTime tglMulai = DateTime.MinValue;
+                DateTime tglSelesai = DateTime.MinValue;
+                string statusLama = "";
+
+                using (var cmdData = new NpgsqlCommand(queryData, conn, trans))
+                {
+                    cmdData.Parameters.AddWithValue("id", this.IdPenyewaan);
+                    using var reader = cmdData.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        idAlat = Convert.ToInt32(reader["id_alat"]);
+
+                        var tglMulaiRaw = reader["tgl_mulai"];
+                        if (tglMulaiRaw is DateOnly doMulai)
+                            tglMulai = doMulai.ToDateTime(TimeOnly.MinValue);
+                        else
+                            tglMulai = Convert.ToDateTime(tglMulaiRaw);
+
+                        var tglSelesaiRaw = reader["tgl_selesai"];
+                        if (tglSelesaiRaw is DateOnly doSelesai)
+                            tglSelesai = doSelesai.ToDateTime(TimeOnly.MinValue);
+                        else
+                            tglSelesai = Convert.ToDateTime(tglSelesaiRaw);
+
+                        statusLama = reader["status"].ToString();
+                    }
+                }
+
+                if (ok && statusLama != "Disetujui" && statusLama != "Berlangsung")
+                {
+                    string queryCekStok = @"
+                        SELECT a.stok - COALESCE(COUNT(p.id_penyewaan), 0) AS tersedia
+                        FROM alat a
+                        LEFT JOIN penyewaan p ON a.id_alat = p.id_alat 
+                          AND p.status IN ('Disetujui', 'Berlangsung')
+                          AND p.tgl_mulai <= @tgl_selesai 
+                          AND p.tgl_selesai >= @tgl_mulai
+                        WHERE a.id_alat = @id_alat
+                        GROUP BY a.stok";
+
+                    int stokTersedia = 0;
+                    using (var cmdCek = new NpgsqlCommand(queryCekStok, conn, trans))
+                    {
+                        cmdCek.Parameters.AddWithValue("id_alat", idAlat);
+                        cmdCek.Parameters.AddWithValue("tgl_mulai", tglMulai.Date);
+                        cmdCek.Parameters.AddWithValue("tgl_selesai", tglSelesai.Date);
+                        object res = cmdCek.ExecuteScalar();
+                        stokTersedia = res != null ? Convert.ToInt32(res) : 0;
+                    }
+
+                    if (stokTersedia <= 0)
+                    {
+                        MessageBox.Show("Gagal menyetujui! Stok alat ini sudah habis terpakai atau dibooking oleh penyewa lain pada jadwal tersebut.", "Stok Habis", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        trans.Rollback();
+                        return;
+                    }
+                }
+
+                this.Status = ok ? "Disetujui" : "Ditolak";
+
+                string queryUpdateSewa = "UPDATE penyewaan SET status = @status WHERE id_penyewaan = @id";
+                using (var cmdUpdate = new NpgsqlCommand(queryUpdateSewa, conn, trans))
+                {
+                    cmdUpdate.Parameters.AddWithValue("status", this.Status);
+                    cmdUpdate.Parameters.AddWithValue("id", this.IdPenyewaan);
+                    cmdUpdate.ExecuteNonQuery();
+                }
+
+                string statusBayarBaru = ok ? "Lunas" : "Ditolak";
+                string queryUpdateBayar = "UPDATE pembayaran SET status = @status WHERE id_penyewaan = @id";
+                using (var cmdBayar = new NpgsqlCommand(queryUpdateBayar, conn, trans))
+                {
+                    cmdBayar.Parameters.AddWithValue("status", statusBayarBaru);
+                    cmdBayar.Parameters.AddWithValue("id", this.IdPenyewaan);
+                    cmdBayar.ExecuteNonQuery();
+                }
+
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal memproses verifikasi: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        public bool BuatPesanan(int idMetode)
+        public bool BuatPesanan(int idMetode, bool langsung, string pathBukti = null)
         {
             try
             {
@@ -65,7 +175,34 @@ namespace RentaniApp.Models
                 conn.Open();
                 using var trans = conn.BeginTransaction();
 
-                this.Status = "Menunggu";
+                string queryCekStok = @"
+                    SELECT a.stok - COALESCE(COUNT(p.id_penyewaan), 0) AS tersedia
+                    FROM alat a
+                    LEFT JOIN penyewaan p ON a.id_alat = p.id_alat 
+                      AND p.status IN ('Disetujui', 'Berlangsung')
+                      AND p.tgl_mulai <= @tgl_selesai 
+                      AND p.tgl_selesai >= @tgl_mulai
+                    WHERE a.id_alat = @id_alat
+                    GROUP BY a.stok";
+
+                int stokTersedia = 0;
+                using (var cmdCek = new NpgsqlCommand(queryCekStok, conn, trans))
+                {
+                    cmdCek.Parameters.AddWithValue("id_alat", this.IdAlat);
+                    cmdCek.Parameters.AddWithValue("tgl_mulai", this.TglMulai.Date);
+                    cmdCek.Parameters.AddWithValue("tgl_selesai", this.TglSelesai.Date);
+                    object res = cmdCek.ExecuteScalar();
+                    stokTersedia = res != null ? Convert.ToInt32(res) : 0;
+                }
+
+                if (stokTersedia <= 0)
+                {
+                    MessageBox.Show("Maaf, stok alat sudah tidak tersedia untuk tanggal tersebut!", "Gagal Sewa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    trans.Rollback();
+                    return false;
+                }
+
+                this.Status = langsung ? "Disetujui" : "Menunggu";
 
                 string querySewa = @"INSERT INTO penyewaan (id_penyewa, id_alat, tgl_mulai, tgl_selesai, durasi_hari, total_harga, status, catatan)
                                      VALUES (@id_penyewa, @id_alat, @tgl_mulai, @tgl_selesai, @durasi_hari, @total_harga, @status, @catatan)
@@ -76,8 +213,8 @@ namespace RentaniApp.Models
                 {
                     cmdSewa.Parameters.AddWithValue("id_penyewa", this.IdPenyewa);
                     cmdSewa.Parameters.AddWithValue("id_alat", this.IdAlat);
-                    cmdSewa.Parameters.AddWithValue("tgl_mulai", this.TglMulai);
-                    cmdSewa.Parameters.AddWithValue("tgl_selesai", this.TglSelesai);
+                    cmdSewa.Parameters.AddWithValue("tgl_mulai", this.TglMulai.Date);
+                    cmdSewa.Parameters.AddWithValue("tgl_selesai", this.TglSelesai.Date);
                     cmdSewa.Parameters.AddWithValue("durasi_hari", this.DurasiHari);
                     cmdSewa.Parameters.AddWithValue("total_harga", this.TotalHarga);
                     cmdSewa.Parameters.AddWithValue("status", this.Status);
@@ -86,15 +223,21 @@ namespace RentaniApp.Models
                     idSewaBaru = Convert.ToInt32(cmdSewa.ExecuteScalar());
                 }
 
-                string queryPembayaran = @"INSERT INTO pembayaran (id_penyewaan, id_metode, jumlah, status, tgl_bayar)
-                                           VALUES (@id_sewa, @id_metode, @jumlah, 'Menunggu Konfirmasi', @tgl_bayar)";
+                string statusBayarAwal = langsung ? "Lunas" : "Menunggu Konfirmasi";
+                object tglBayarAwal = langsung ? (object)DateTime.Now : DBNull.Value;
+                object buktiAwal = !string.IsNullOrEmpty(pathBukti) ? (object)pathBukti : DBNull.Value;
+
+                string queryPembayaran = @"INSERT INTO pembayaran (id_penyewaan, id_metode, jumlah, status, tgl_bayar, bukti_transfer)
+                                           VALUES (@id_sewa, @id_metode, @jumlah, @status_bayar, @tgl_bayar, @bukti)";
 
                 using (var cmdBayar = new NpgsqlCommand(queryPembayaran, conn, trans))
                 {
                     cmdBayar.Parameters.AddWithValue("id_sewa", idSewaBaru);
                     cmdBayar.Parameters.AddWithValue("id_metode", idMetode);
                     cmdBayar.Parameters.AddWithValue("jumlah", this.TotalHarga);
-                    cmdBayar.Parameters.AddWithValue("tgl_bayar", DateTime.Now);
+                    cmdBayar.Parameters.AddWithValue("status_bayar", statusBayarAwal);
+                    cmdBayar.Parameters.AddWithValue("tgl_bayar", tglBayarAwal);
+                    cmdBayar.Parameters.AddWithValue("bukti", buktiAwal);
                     cmdBayar.ExecuteNonQuery();
                 }
 
@@ -108,15 +251,36 @@ namespace RentaniApp.Models
             }
         }
 
-        private void UpdateStatusKeDb()
+        public static bool BatalkanPesananPenyewa(int idPenyewaan)
         {
-            using var conn = DbHelper.GetConnection();
-            conn.Open();
-            string query = "UPDATE penyewaan SET status = @status WHERE id_penyewaan = @id";
-            using var cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("status", this.Status);
-            cmd.Parameters.AddWithValue("id", this.IdPenyewaan);
-            cmd.ExecuteNonQuery();
+            try
+            {
+                using var conn = DbHelper.GetConnection();
+                conn.Open();
+                using var trans = conn.BeginTransaction();
+
+                string querySewa = "UPDATE penyewaan SET status = 'Dibatalkan' WHERE id_penyewaan = @id_penyewaan";
+                using (var cmdSewa = new NpgsqlCommand(querySewa, conn, trans))
+                {
+                    cmdSewa.Parameters.AddWithValue("id_penyewaan", idPenyewaan);
+                    cmdSewa.ExecuteNonQuery();
+                }
+
+                string queryBayar = "UPDATE pembayaran SET status = 'Dibatalkan' WHERE id_penyewaan = @id_penyewaan";
+                using (var cmdBayar = new NpgsqlCommand(queryBayar, conn, trans))
+                {
+                    cmdBayar.Parameters.AddWithValue("id_penyewaan", idPenyewaan);
+                    cmdBayar.ExecuteNonQuery();
+                }
+
+                trans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal query batal pesanan ke database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         public static DataTable AmbilSemuaDataSewa()
@@ -126,13 +290,13 @@ namespace RentaniApp.Models
             conn.Open();
 
             string query = @"
-                SELECT p.id_penyewaan AS ""IdPenyewaan"", 
-                       u.nama AS ""NamaPenyewa"", 
-                       a.nama_alat AS ""NamaAlat"", 
-                       p.tgl_mulai AS ""TglMulai"", 
-                       p.tgl_selesai AS ""TglSelesai"", 
-                       p.total_harga AS ""TotalHarga"", 
-                       p.status AS ""Status""
+                SELECT p.id_penyewaan AS IdPenyewaan, 
+                       u.nama AS NamaPenyewa, 
+                       a.nama_alat AS NamaAlat, 
+                       p.tgl_mulai AS TglMulai, 
+                       p.tgl_selesai AS TglSelesai, 
+                       p.total_harga AS TotalHarga, 
+                       p.status AS Status
                 FROM penyewaan p
                 JOIN penyewa py ON p.id_penyewa = py.id_penyewa
                 JOIN ""user"" u ON py.id_user = u.id_user
@@ -145,7 +309,6 @@ namespace RentaniApp.Models
             return dt;
         }
 
-        // FIX TOTAL: Mengubah filtering dari id_user yang salah menjadi id_penyewa asli
         public static Dictionary<string, object> AmbilStatistikBeranda(int idUser)
         {
             var statistik = new Dictionary<string, object>
@@ -168,7 +331,7 @@ namespace RentaniApp.Models
                 statistik["SewaAktif"] = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
-            string qMenunggu = "SELECT COUNT(*) FROM penyewaan WHERE id_penyewa = @id AND (status = 'Menunggu' OR status = 'Disetujui')";
+            string qMenunggu = "SELECT COUNT(*) FROM penyewaan WHERE id_penyewa = @id AND status = 'Menunggu'";
             using (var cmd = new NpgsqlCommand(qMenunggu, conn))
             {
                 cmd.Parameters.AddWithValue("id", idPenyewa);
@@ -190,65 +353,6 @@ namespace RentaniApp.Models
             }
 
             return statistik;
-        }
-
-        public static DataTable AmbilSemuaUlasanAdmin()
-        {
-            DataTable dt = new DataTable();
-            using var conn = DbHelper.GetConnection();
-            conn.Open();
-
-            string query = @"
-                SELECT u.nama AS ""NamaPenyewa"", 
-                       a.nama_alat AS ""NamaAlat"", 
-                       p.komentar_ulasan AS ""KomentarUlasan"", 
-                       p.tgl_ulasan AS ""TglUlasan"",
-                       COALESCE(p.id_rating, 5) AS ""SkorRating""
-                FROM penyewaan p
-                JOIN penyewa py ON p.id_penyewa = py.id_penyewa
-                JOIN ""user"" u ON py.id_user = u.id_user
-                JOIN alat a ON p.id_alat = a.id_alat
-                WHERE p.komentar_ulasan IS NOT NULL AND p.komentar_ulasan <> ''
-                ORDER BY p.tgl_ulasan DESC";
-
-            using var cmd = new NpgsqlCommand(query, conn);
-            using var da = new NpgsqlDataAdapter(cmd);
-            da.Fill(dt);
-            return dt;
-        }
-
-        public static Dictionary<string, object> AmbilRingkasanUlasanAdmin()
-        {
-            var ringkasan = new Dictionary<string, object>
-            {
-                ["TotalUlasan"] = 0,
-                ["RatingRataRata"] = 0.0
-            };
-
-            try
-            {
-                using var conn = DbHelper.GetConnection();
-                conn.Open();
-
-                string query = @"
-                    SELECT COUNT(komentar_ulasan) AS total_ulasan,
-                           COALESCE(AVG(id_rating), 0.0) AS rata_rata
-                    FROM penyewaan
-                    WHERE komentar_ulasan IS NOT NULL AND komentar_ulasan <> ''";
-
-                using var cmd = new NpgsqlCommand(query, conn);
-                using var reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    ringkasan["TotalUlasan"] = Convert.ToInt32(reader["total_ulasan"]);
-                    ringkasan["RatingRataRata"] = Convert.ToDouble(reader["rata_rata"]);
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-            return ringkasan;
         }
 
         public static Dictionary<string, object> AmbilRingkasanBisnisAdmin()
@@ -283,14 +387,11 @@ namespace RentaniApp.Models
                     ringkasan["Pendapatan"] = Convert.ToDecimal(cmd.ExecuteScalar());
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
 
             return ringkasan;
         }
 
-        // FIX TOTAL: Konversi otomatis ID User ke ID Penyewa agar query di Grid tidak kosong atau salah target
         public static DataTable AmbilRiwayatSewaPenyewa(int idUser)
         {
             DataTable dt = new DataTable();
@@ -308,7 +409,7 @@ namespace RentaniApp.Models
                        p.status AS ""StatusAlat""
                 FROM penyewaan p
                 JOIN alat a ON p.id_alat = a.id_alat
-                JOIN ""user"" u_pemilik ON a.id_user = u_pemilik.id_user
+                JOIN ""user"" u_pemilik ON a.id_pemilik = u_pemilik.id_user
                 WHERE p.id_penyewa = @id_penyewa
                 ORDER BY p.id_penyewaan DESC";
 
@@ -317,26 +418,6 @@ namespace RentaniApp.Models
             using var da = new NpgsqlDataAdapter(cmd);
             da.Fill(dt);
             return dt;
-        }
-
-        public static bool BatalkanPesananPenyewa(int idPenyewaan)
-        {
-            try
-            {
-                using var conn = DbHelper.GetConnection();
-                conn.Open();
-
-                string query = "UPDATE penyewaan SET status = 'Dibatalkan' WHERE id_penyewaan = @id AND status = 'Menunggu'";
-                using var cmd = new NpgsqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("id", idPenyewaan);
-
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
     }
 }
