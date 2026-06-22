@@ -38,9 +38,6 @@
             pnlCard3 = new Panel();
             lblValIncome = new Label();
             lblKetIncome = new Label();
-            pnlCard4 = new Panel();
-            lblValRating = new Label();
-            lblKetRating = new Label();
             lblTitleTabel = new Label();
             dgvPengajuan = new DataGridView();
             lblTitlePopuler = new Label();
@@ -52,6 +49,7 @@
             pnlPop2 = new Panel();
             lblPopHarga2 = new Label();
             lblPopKet2 = new Label();
+            lblPopNama2 = new Label();
             pnlPop3 = new Panel();
             lblPopHarga3 = new Label();
             lblPopKet3 = new Label();
@@ -61,7 +59,6 @@
             pnlCard1.SuspendLayout();
             pnlCard2.SuspendLayout();
             pnlCard3.SuspendLayout();
-            pnlCard4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPengajuan).BeginInit();
             tlpPopuler.SuspendLayout();
             pnlPop1.SuspendLayout();
@@ -79,162 +76,126 @@
             tlpRingkasan.Controls.Add(pnlCard1, 0, 0);
             tlpRingkasan.Controls.Add(pnlCard2, 1, 0);
             tlpRingkasan.Controls.Add(pnlCard3, 2, 0);
-            tlpRingkasan.Controls.Add(pnlCard4, 3, 0);
             tlpRingkasan.Location = new Point(309, 146);
             tlpRingkasan.Name = "tlpRingkasan";
             tlpRingkasan.RowCount = 1;
             tlpRingkasan.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpRingkasan.Size = new Size(980, 100);
+            tlpRingkasan.Size = new Size(980, 110);
             tlpRingkasan.TabIndex = 2;
             // 
             // pnlCard1
             // 
             pnlCard1.BackColor = Color.White;
-            pnlCard1.BorderStyle = BorderStyle.FixedSingle;
+            pnlCard1.BorderStyle = BorderStyle.None;
             pnlCard1.Controls.Add(lblValAlat);
             pnlCard1.Controls.Add(lblKetAlat);
             pnlCard1.Dock = DockStyle.Fill;
-            pnlCard1.Location = new Point(5, 5);
-            pnlCard1.Margin = new Padding(5);
+            pnlCard1.Location = new Point(8, 8);
+            pnlCard1.Margin = new Padding(8);
             pnlCard1.Name = "pnlCard1";
-            pnlCard1.Size = new Size(235, 90);
+            pnlCard1.Size = new Size(229, 94);
             pnlCard1.TabIndex = 0;
             // 
             // lblValAlat
             // 
             lblValAlat.AutoSize = true;
-            lblValAlat.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblValAlat.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblValAlat.ForeColor = Color.FromArgb(31, 41, 55);
-            lblValAlat.Location = new Point(15, 10);
+            lblValAlat.Location = new Point(20, 12);
             lblValAlat.Name = "lblValAlat";
-            lblValAlat.Size = new Size(38, 45);
+            lblValAlat.Size = new Size(46, 54);
             lblValAlat.TabIndex = 0;
             lblValAlat.Text = "3";
             // 
             // lblKetAlat
             // 
             lblKetAlat.AutoSize = true;
-            lblKetAlat.Font = new Font("Segoe UI", 8.5F);
-            lblKetAlat.ForeColor = Color.FromArgb(107, 114, 128);
-            lblKetAlat.Location = new Point(15, 48);
+            lblKetAlat.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lblKetAlat.ForeColor = Color.FromArgb(156, 163, 175);
+            lblKetAlat.Location = new Point(20, 62);
             lblKetAlat.Name = "lblKetAlat";
-            lblKetAlat.Size = new Size(173, 23);
+            lblKetAlat.Size = new Size(185, 25);
             lblKetAlat.TabIndex = 1;
             lblKetAlat.Text = "Total Alat / 2 Tersedia";
             // 
             // pnlCard2
             // 
             pnlCard2.BackColor = Color.White;
-            pnlCard2.BorderStyle = BorderStyle.FixedSingle;
+            pnlCard2.BorderStyle = BorderStyle.None;
             pnlCard2.Controls.Add(lblValSewa);
             pnlCard2.Controls.Add(lblKetSewa);
             pnlCard2.Dock = DockStyle.Fill;
-            pnlCard2.Location = new Point(250, 5);
-            pnlCard2.Margin = new Padding(5);
+            pnlCard2.Location = new Point(253, 8);
+            pnlCard2.Margin = new Padding(8);
             pnlCard2.Name = "pnlCard2";
-            pnlCard2.Size = new Size(235, 90);
+            pnlCard2.Size = new Size(229, 94);
             pnlCard2.TabIndex = 1;
             // 
             // lblValSewa
             // 
             lblValSewa.AutoSize = true;
-            lblValSewa.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblValSewa.ForeColor = Color.OrangeRed;
-            lblValSewa.Location = new Point(15, 10);
+            lblValSewa.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblValSewa.ForeColor = Color.FromArgb(239, 68, 68);
+            lblValSewa.Location = new Point(20, 12);
             lblValSewa.Name = "lblValSewa";
-            lblValSewa.Size = new Size(38, 45);
+            lblValSewa.Size = new Size(46, 54);
             lblValSewa.TabIndex = 0;
             lblValSewa.Text = "2";
             // 
             // lblKetSewa
             // 
             lblKetSewa.AutoSize = true;
-            lblKetSewa.Font = new Font("Segoe UI", 8.5F);
-            lblKetSewa.ForeColor = Color.FromArgb(107, 114, 128);
-            lblKetSewa.Location = new Point(15, 48);
+            lblKetSewa.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lblKetSewa.ForeColor = Color.FromArgb(156, 163, 175);
+            lblKetSewa.Location = new Point(20, 62);
             lblKetSewa.Name = "lblKetSewa";
-            lblKetSewa.Size = new Size(224, 23);
+            lblKetSewa.Size = new Size(236, 25);
             lblKetSewa.TabIndex = 1;
             lblKetSewa.Text = "Pengajuan Baru / Perlu Verif";
             // 
             // pnlCard3
             // 
             pnlCard3.BackColor = Color.White;
-            pnlCard3.BorderStyle = BorderStyle.FixedSingle;
+            pnlCard3.BorderStyle = BorderStyle.None;
             pnlCard3.Controls.Add(lblValIncome);
             pnlCard3.Controls.Add(lblKetIncome);
             pnlCard3.Dock = DockStyle.Fill;
-            pnlCard3.Location = new Point(495, 5);
-            pnlCard3.Margin = new Padding(5);
+            pnlCard3.Location = new Point(498, 8);
+            pnlCard3.Margin = new Padding(8);
             pnlCard3.Name = "pnlCard3";
-            pnlCard3.Size = new Size(235, 90);
+            pnlCard3.Size = new Size(229, 94);
             pnlCard3.TabIndex = 2;
             // 
             // lblValIncome
             // 
             lblValIncome.AutoSize = true;
-            lblValIncome.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblValIncome.ForeColor = Color.ForestGreen;
-            lblValIncome.Location = new Point(15, 10);
+            lblValIncome.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblValIncome.ForeColor = Color.FromArgb(16, 185, 129);
+            lblValIncome.Location = new Point(20, 12);
             lblValIncome.Name = "lblValIncome";
-            lblValIncome.Size = new Size(172, 45);
+            lblValIncome.Size = new Size(180, 54);
             lblValIncome.TabIndex = 0;
             lblValIncome.Text = "Rp 1.300K";
             // 
             // lblKetIncome
             // 
             lblKetIncome.AutoSize = true;
-            lblKetIncome.Font = new Font("Segoe UI", 8.5F);
-            lblKetIncome.ForeColor = Color.FromArgb(107, 114, 128);
-            lblKetIncome.Location = new Point(15, 48);
+            lblKetIncome.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lblKetIncome.ForeColor = Color.FromArgb(156, 163, 175);
+            lblKetIncome.Location = new Point(20, 62);
             lblKetIncome.Name = "lblKetIncome";
-            lblKetIncome.Size = new Size(216, 23);
+            lblKetIncome.Size = new Size(233, 25);
             lblKetIncome.TabIndex = 1;
             lblKetIncome.Text = "Pendapatan / Selesai Bayar";
-            // 
-            // pnlCard4
-            // 
-            pnlCard4.BackColor = Color.White;
-            pnlCard4.BorderStyle = BorderStyle.FixedSingle;
-            pnlCard4.Controls.Add(lblValRating);
-            pnlCard4.Controls.Add(lblKetRating);
-            pnlCard4.Dock = DockStyle.Fill;
-            pnlCard4.Location = new Point(740, 5);
-            pnlCard4.Margin = new Padding(5);
-            pnlCard4.Name = "pnlCard4";
-            pnlCard4.Size = new Size(235, 90);
-            pnlCard4.TabIndex = 3;
-            // 
-            // lblValRating
-            // 
-            lblValRating.AutoSize = true;
-            lblValRating.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblValRating.ForeColor = Color.BlueViolet;
-            lblValRating.Location = new Point(15, 10);
-            lblValRating.Name = "lblValRating";
-            lblValRating.Size = new Size(102, 45);
-            lblValRating.TabIndex = 0;
-            lblValRating.Text = "4.7 ★";
-            // 
-            // lblKetRating
-            // 
-            lblKetRating.AutoSize = true;
-            lblKetRating.Font = new Font("Segoe UI", 8.5F);
-            lblKetRating.ForeColor = Color.FromArgb(107, 114, 128);
-            lblKetRating.Location = new Point(15, 48);
-            lblKetRating.Name = "lblKetRating";
-            lblKetRating.Size = new Size(177, 23);
-            lblKetRating.TabIndex = 1;
-            lblKetRating.Text = "Rating / Dari 3 Ulasan";
             // 
             // lblTitleTabel
             // 
             lblTitleTabel.AutoSize = true;
-            lblTitleTabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            lblTitleTabel.ForeColor = Color.FromArgb(31, 41, 55);
-            lblTitleTabel.Location = new Point(309, 249);
+            lblTitleTabel.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
+            lblTitleTabel.ForeColor = Color.FromArgb(17, 24, 39);
+            lblTitleTabel.Location = new Point(309, 275);
             lblTitleTabel.Name = "lblTitleTabel";
-            lblTitleTabel.Size = new Size(218, 32);
+            lblTitleTabel.Size = new Size(243, 36);
             lblTitleTabel.TabIndex = 3;
             lblTitleTabel.Text = "Pengajuan Terbaru";
             // 
@@ -242,21 +203,48 @@
             // 
             dgvPengajuan.BackgroundColor = Color.White;
             dgvPengajuan.BorderStyle = BorderStyle.None;
-            dgvPengajuan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPengajuan.Location = new Point(299, 284);
+            dgvPengajuan.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvPengajuan.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+
+            System.Windows.Forms.DataGridViewCellStyle headerStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            headerStyle.BackColor = Color.FromArgb(31, 41, 55);
+            headerStyle.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            headerStyle.ForeColor = Color.White;
+            headerStyle.SelectionBackColor = Color.FromArgb(31, 41, 55);
+            headerStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvPengajuan.ColumnHeadersDefaultCellStyle = headerStyle;
+            dgvPengajuan.ColumnHeadersHeight = 40;
+            dgvPengajuan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            System.Windows.Forms.DataGridViewCellStyle rowStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            rowStyle.BackColor = Color.White;
+            rowStyle.Font = new Font("Segoe UI", 9.5F);
+            rowStyle.ForeColor = Color.FromArgb(55, 65, 81);
+            rowStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            rowStyle.SelectionForeColor = Color.FromArgb(29, 78, 216);
+            dgvPengajuan.DefaultCellStyle = rowStyle;
+
+            System.Windows.Forms.DataGridViewCellStyle altRowStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            altRowStyle.BackColor = Color.FromArgb(249, 250, 251);
+            dgvPengajuan.AlternatingRowsDefaultCellStyle = altRowStyle;
+
+            dgvPengajuan.RowHeadersVisible = false;
+            dgvPengajuan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPengajuan.AllowUserToResizeRows = false;
+            dgvPengajuan.Location = new Point(315, 320);
             dgvPengajuan.Name = "dgvPengajuan";
-            dgvPengajuan.RowHeadersWidth = 51;
-            dgvPengajuan.Size = new Size(980, 200);
+            dgvPengajuan.RowTemplate.Height = 35;
+            dgvPengajuan.Size = new Size(968, 185);
             dgvPengajuan.TabIndex = 4;
             // 
             // lblTitlePopuler
             // 
             lblTitlePopuler.AutoSize = true;
-            lblTitlePopuler.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            lblTitlePopuler.ForeColor = Color.FromArgb(31, 41, 55);
-            lblTitlePopuler.Location = new Point(304, 487);
+            lblTitlePopuler.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
+            lblTitlePopuler.ForeColor = Color.FromArgb(17, 24, 39);
+            lblTitlePopuler.Location = new Point(309, 525);
             lblTitlePopuler.Name = "lblTitlePopuler";
-            lblTitlePopuler.Size = new Size(291, 32);
+            lblTitlePopuler.Size = new Size(311, 36);
             lblTitlePopuler.TabIndex = 5;
             lblTitlePopuler.Text = "Alat Paling Sering Disewa";
             // 
@@ -269,148 +257,164 @@
             tlpPopuler.Controls.Add(pnlPop1, 0, 0);
             tlpPopuler.Controls.Add(pnlPop2, 1, 0);
             tlpPopuler.Controls.Add(pnlPop3, 2, 0);
-            tlpPopuler.Location = new Point(293, 522);
+            tlpPopuler.Location = new Point(309, 570);
             tlpPopuler.Name = "tlpPopuler";
             tlpPopuler.RowCount = 1;
             tlpPopuler.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpPopuler.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tlpPopuler.Size = new Size(980, 140);
+            tlpPopuler.Size = new Size(980, 130);
             tlpPopuler.TabIndex = 6;
             // 
             // pnlPop1
             // 
             pnlPop1.BackColor = Color.White;
-            pnlPop1.BorderStyle = BorderStyle.FixedSingle;
+            pnlPop1.BorderStyle = BorderStyle.None;
             pnlPop1.Controls.Add(lblPopHarga1);
             pnlPop1.Controls.Add(lblPopKet1);
             pnlPop1.Controls.Add(lblPopNama1);
             pnlPop1.Dock = DockStyle.Fill;
-            pnlPop1.Location = new Point(5, 5);
-            pnlPop1.Margin = new Padding(5);
+            pnlPop1.Location = new Point(6, 6);
+            pnlPop1.Margin = new Padding(6);
             pnlPop1.Name = "pnlPop1";
-            pnlPop1.Size = new Size(316, 130);
+            pnlPop1.Size = new Size(314, 118);
             pnlPop1.TabIndex = 0;
+            // 
+            // lblPopNama1
+            // 
+            lblPopNama1.AutoSize = true;
+            lblPopNama1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lblPopNama1.ForeColor = Color.FromArgb(31, 41, 55);
+            lblPopNama1.Location = new Point(18, 15);
+            lblPopNama1.Name = "lblPopNama1";
+            lblPopNama1.Size = new Size(198, 30);
+            lblPopNama1.TabIndex = 0;
+            lblPopNama1.Text = "#1 Traktor Kubota";
+            // 
+            // lblPopKet1
+            // 
+            lblPopKet1.AutoSize = true;
+            lblPopKet1.Font = new Font("Segoe UI", 9F);
+            lblPopKet1.ForeColor = Color.FromArgb(107, 114, 128);
+            lblPopKet1.Location = new Point(18, 48);
+            lblPopKet1.Name = "lblPopKet1";
+            lblPopKet1.Size = new Size(121, 25);
+            lblPopKet1.TabIndex = 1;
+            lblPopKet1.Text = "15 Kali disewa";
             // 
             // lblPopHarga1
             // 
             lblPopHarga1.AutoSize = true;
             lblPopHarga1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblPopHarga1.ForeColor = Color.ForestGreen;
-            lblPopHarga1.Location = new Point(15, 85);
+            lblPopHarga1.ForeColor = Color.FromArgb(59, 130, 246);
+            lblPopHarga1.Location = new Point(18, 78);
             lblPopHarga1.Name = "lblPopHarga1";
-            lblPopHarga1.Size = new Size(150, 30);
+            lblPopHarga1.Size = new Size(147, 30);
             lblPopHarga1.TabIndex = 2;
             lblPopHarga1.Text = "Rp 6.000.000";
-            // 
-            // lblPopKet1
-            // 
-            lblPopKet1.AutoSize = true;
-            lblPopKet1.ForeColor = Color.Gray;
-            lblPopKet1.Location = new Point(15, 48);
-            lblPopKet1.Name = "lblPopKet1";
-            lblPopKet1.Size = new Size(123, 25);
-            lblPopKet1.TabIndex = 1;
-            lblPopKet1.Text = "15 Kali disewa";
-            // 
-            // lblPopNama1
-            // 
-            lblPopNama1.AutoSize = true;
-            lblPopNama1.Font = new Font("Segoe UI Semibold", 10.5F, FontStyle.Bold);
-            lblPopNama1.Location = new Point(15, 15);
-            lblPopNama1.Name = "lblPopNama1";
-            lblPopNama1.Size = new Size(184, 30);
-            lblPopNama1.TabIndex = 0;
-            lblPopNama1.Text = "#1 Traktor Kubota";
             // 
             // pnlPop2
             // 
             pnlPop2.BackColor = Color.White;
-            pnlPop2.BorderStyle = BorderStyle.FixedSingle;
+            pnlPop2.BorderStyle = BorderStyle.None;
             pnlPop2.Controls.Add(lblPopHarga2);
             pnlPop2.Controls.Add(lblPopKet2);
+            pnlPop2.Controls.Add(lblPopNama2);
             pnlPop2.Dock = DockStyle.Fill;
-            pnlPop2.Location = new Point(331, 5);
-            pnlPop2.Margin = new Padding(5);
+            pnlPop2.Location = new Point(332, 6);
+            pnlPop2.Margin = new Padding(6);
             pnlPop2.Name = "pnlPop2";
-            pnlPop2.Size = new Size(316, 130);
+            pnlPop2.Size = new Size(314, 118);
             pnlPop2.TabIndex = 1;
+            // 
+            // lblPopNama2
+            // 
+            lblPopNama2.AutoSize = true;
+            lblPopNama2.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lblPopNama2.ForeColor = Color.FromArgb(31, 41, 55);
+            lblPopNama2.Location = new Point(18, 15);
+            lblPopNama2.Name = "lblPopNama2";
+            lblPopNama2.Size = new Size(198, 30);
+            lblPopNama2.Text = "#2 Traktor Tangan";
+            // 
+            // lblPopKet2
+            // 
+            lblPopKet2.AutoSize = true;
+            lblPopKet2.Font = new Font("Segoe UI", 9F);
+            lblPopKet2.ForeColor = Color.FromArgb(107, 114, 128);
+            lblPopKet2.Location = new Point(18, 48);
+            lblPopKet2.Name = "lblPopKet2";
+            lblPopKet2.Size = new Size(121, 25);
+            lblPopKet2.TabIndex = 1;
+            lblPopKet2.Text = "12 Kali disewa";
             // 
             // lblPopHarga2
             // 
             lblPopHarga2.AutoSize = true;
             lblPopHarga2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblPopHarga2.ForeColor = Color.ForestGreen;
-            lblPopHarga2.Location = new Point(15, 85);
+            lblPopHarga2.ForeColor = Color.FromArgb(59, 130, 246);
+            lblPopHarga2.Location = new Point(18, 78);
             lblPopHarga2.Name = "lblPopHarga2";
-            lblPopHarga2.Size = new Size(150, 30);
+            lblPopHarga2.Size = new Size(147, 30);
             lblPopHarga2.TabIndex = 2;
             lblPopHarga2.Text = "Rp 3.000.000";
-            // 
-            // lblPopKet2
-            // 
-            lblPopKet2.AutoSize = true;
-            lblPopKet2.ForeColor = Color.Gray;
-            lblPopKet2.Location = new Point(15, 48);
-            lblPopKet2.Name = "lblPopKet2";
-            lblPopKet2.Size = new Size(123, 25);
-            lblPopKet2.TabIndex = 1;
-            lblPopKet2.Text = "12 Kali disewa";
             // 
             // pnlPop3
             // 
             pnlPop3.BackColor = Color.White;
-            pnlPop3.BorderStyle = BorderStyle.FixedSingle;
+            pnlPop3.BorderStyle = BorderStyle.None;
             pnlPop3.Controls.Add(lblPopHarga3);
             pnlPop3.Controls.Add(lblPopKet3);
             pnlPop3.Controls.Add(lblPopNama3);
             pnlPop3.Dock = DockStyle.Fill;
-            pnlPop3.Location = new Point(657, 5);
-            pnlPop3.Margin = new Padding(5);
+            pnlPop3.Location = new Point(658, 6);
+            pnlPop3.Margin = new Padding(6);
             pnlPop3.Name = "pnlPop3";
-            pnlPop3.Size = new Size(318, 130);
+            pnlPop3.Size = new Size(316, 118);
             pnlPop3.TabIndex = 2;
+            // 
+            // lblPopNama3
+            // 
+            lblPopNama3.AutoSize = true;
+            lblPopNama3.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lblPopNama3.ForeColor = Color.FromArgb(31, 41, 55);
+            lblPopNama3.Location = new Point(18, 15);
+            lblPopNama3.Name = "lblPopNama3";
+            lblPopNama3.Size = new Size(220, 30);
+            lblPopNama3.TabIndex = 0;
+            lblPopNama3.Text = "#3 Hand Sprayer 14L";
+            // 
+            // lblPopKet3
+            // 
+            lblPopKet3.AutoSize = true;
+            lblPopKet3.Font = new Font("Segoe UI", 9F);
+            lblPopKet3.ForeColor = Color.FromArgb(107, 114, 128);
+            lblPopKet3.Location = new Point(18, 48);
+            lblPopKet3.Name = "lblPopKet3";
+            lblPopKet3.Size = new Size(111, 25);
+            lblPopKet3.TabIndex = 1;
+            lblPopKet3.Text = "9 Kali disewa";
             // 
             // lblPopHarga3
             // 
             lblPopHarga3.AutoSize = true;
             lblPopHarga3.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblPopHarga3.ForeColor = Color.ForestGreen;
-            lblPopHarga3.Location = new Point(15, 85);
+            lblPopHarga3.ForeColor = Color.FromArgb(59, 130, 246);
+            lblPopHarga3.Location = new Point(18, 78);
             lblPopHarga3.Name = "lblPopHarga3";
-            lblPopHarga3.Size = new Size(131, 30);
+            lblPopHarga3.Size = new Size(128, 30);
             lblPopHarga3.TabIndex = 2;
             lblPopHarga3.Text = "Rp 315.000";
-            // 
-            // lblPopKet3
-            // 
-            lblPopKet3.AutoSize = true;
-            lblPopKet3.ForeColor = Color.Gray;
-            lblPopKet3.Location = new Point(15, 48);
-            lblPopKet3.Name = "lblPopKet3";
-            lblPopKet3.Size = new Size(113, 25);
-            lblPopKet3.TabIndex = 1;
-            lblPopKet3.Text = "9 Kali disewa";
-            // 
-            // lblPopNama3
-            // 
-            lblPopNama3.AutoSize = true;
-            lblPopNama3.Font = new Font("Segoe UI Semibold", 10.5F, FontStyle.Bold);
-            lblPopNama3.Location = new Point(15, 15);
-            lblPopNama3.Name = "lblPopNama3";
-            lblPopNama3.Size = new Size(209, 30);
-            lblPopNama3.TabIndex = 0;
-            lblPopNama3.Text = "#3 Hand Sprayer 14L";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(309, 22);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(17, 24, 39);
+            label1.Location = new Point(309, 25);
             label1.Name = "label1";
-            label1.Size = new Size(108, 32);
+            label1.Size = new Size(158, 48);
             label1.TabIndex = 7;
-            label1.Text = "Beranda";
+            label1.Text = "Dashboard Overview";
             // 
             // ucBeranda
             // 
@@ -424,7 +428,7 @@
             Controls.Add(lblTitleTabel);
             Controls.Add(tlpRingkasan);
             Name = "ucBeranda";
-            Size = new Size(1312, 680);
+            Size = new Size(1312, 720);
             tlpRingkasan.ResumeLayout(false);
             pnlCard1.ResumeLayout(false);
             pnlCard1.PerformLayout();
@@ -432,8 +436,6 @@
             pnlCard2.PerformLayout();
             pnlCard3.ResumeLayout(false);
             pnlCard3.PerformLayout();
-            pnlCard4.ResumeLayout(false);
-            pnlCard4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPengajuan).EndInit();
             tlpPopuler.ResumeLayout(false);
             pnlPop1.ResumeLayout(false);
@@ -457,9 +459,6 @@
         private Panel pnlCard3;
         private Label lblValIncome;
         private Label lblKetIncome;
-        private Panel pnlCard4;
-        private Label lblValRating;
-        private Label lblKetRating;
         private Label lblTitleTabel;
         private DataGridView dgvPengajuan;
         private Label lblTitlePopuler;

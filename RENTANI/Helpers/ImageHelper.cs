@@ -13,15 +13,23 @@ namespace RentaniApp.Helpers
             using (MemoryStream ms = new MemoryStream())
             {
                 image.Save(ms, ImageFormat.Png);
-                return ms.ToArray(); ;
+                return ms.ToArray();
             }
         }
 
         public Image BinaryToImage(byte[] data)
         {
-            using (MemoryStream ms = new MemoryStream())
+            if (data == null || data.Length == 0) return null;
+            try
             {
-                return Image.FromStream(ms);
+                using (MemoryStream ms = new MemoryStream(data))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Windows.Forms;
 using Npgsql;
 using RentaniApp.Helpers;
 using RentaniApp.Models;
@@ -16,8 +17,8 @@ namespace RentaniApp.Controllers
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Gagal mengambil pengajuan sewa: {ex.Message}", "Error",
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show($"Gagal mengambil pengajuan sewa: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
@@ -32,27 +33,27 @@ namespace RentaniApp.Controllers
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Gagal memproses verifikasi: {ex.Message}", "Error",
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show($"Gagal memproses verifikasi: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
-        public bool KirimPengajuanSewa(int idAlat, DateTime tglMulai, DateTime tglSelesai, int idMetode, string catatanTambahan, decimal hargaPerHari)
+        public bool KirimPengajuanSewa(int idAlat, DateTime tglMulai, DateTime tglSelesai, int idMetode, string catatanTambahan, decimal hargaPerHari, bool langsung)
         {
             try
             {
                 if (tglSelesai.Date < tglMulai.Date)
                 {
-                    System.Windows.Forms.MessageBox.Show("Tanggal selesai tidak boleh mendahului tanggal mulai!", "Validasi Gagal",
-                        System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                    MessageBox.Show("Tanggal selesai tidak boleh mendahului tanggal mulai!", "Validasi Gagal",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 
                 if (!AppSession.IsLoggedIn())
                 {
-                    System.Windows.Forms.MessageBox.Show("Sesi login berakhir. Silakan login kembali.", "Error",
-                        System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    MessageBox.Show("Sesi login berakhir. Silakan login kembali.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 int idUserAktif = AppSession.CurrentUser.Id;
@@ -60,8 +61,8 @@ namespace RentaniApp.Controllers
                 int idPenyewa = CariIdPenyewaDariUser(idUserAktif);
                 if (idPenyewa == 0)
                 {
-                    System.Windows.Forms.MessageBox.Show("Profil Penyewa tidak ditemukan di database!", "Error",
-                        System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    MessageBox.Show("Profil Penyewa tidak ditemukan di database!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
@@ -69,20 +70,19 @@ namespace RentaniApp.Controllers
                 {
                     IdPenyewa = idPenyewa,
                     IdAlat = idAlat,
-                    TglMulai = tglMulai,
-                    TglSelesai = tglSelesai,
-                    Catatan = catatanTambahan,
-                    Status = "Menunggu"
+                    TglMulai = tglMulai.Date,
+                    TglSelesai = tglSelesai.Date,
+                    Catatan = catatanTambahan
                 };
 
                 sewaBaru.HitungTotal(hargaPerHari);
 
-                return sewaBaru.BuatPesanan(idMetode);
+                return sewaBaru.BuatPesanan(idMetode, langsung, null);
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Terjadi kesalahan sistem: {ex.Message}", "Error",
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show($"Terjadi kesalahan sistem: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -112,23 +112,9 @@ namespace RentaniApp.Controllers
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Gagal mengambil riwayat sewa: {ex.Message}", "Error",
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                MessageBox.Show($"Gagal mengambil riwayat sewa: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
-            }
-        }
-
-        public bool BatalkanPesananPenyewa(int idPenyewaan)
-        {
-            try
-            {
-                return Penyewaan.BatalkanPesananPenyewa(idPenyewaan);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Gagal membatalkan pesanan: {ex.Message}", "Error",
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                return false;
             }
         }
     }

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             picAlat = new Guna.UI2.WinForms.Guna2PictureBox();
             lblKategori = new Label();
             lblNamaAlat = new Label();
@@ -45,16 +45,17 @@
             // 
             picAlat.BackColor = Color.Transparent;
             picAlat.BorderRadius = 10;
-            picAlat.CustomizableEdges = customizableEdges5;
+            picAlat.CustomizableEdges = customizableEdges1;
             picAlat.FillColor = Color.WhiteSmoke;
             picAlat.ImageRotate = 0F;
             picAlat.Location = new Point(15, 18);
             picAlat.Name = "picAlat";
-            picAlat.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            picAlat.ShadowDecoration.CustomizableEdges = customizableEdges2;
             picAlat.Size = new Size(191, 112);
             picAlat.SizeMode = PictureBoxSizeMode.Zoom;
             picAlat.TabIndex = 0;
             picAlat.TabStop = false;
+            picAlat.Click += picAlat_Click;
             // 
             // lblKategori
             // 
@@ -110,7 +111,7 @@
             btnSewaSekarang.BorderColor = Color.Transparent;
             btnSewaSekarang.BorderRadius = 10;
             btnSewaSekarang.Cursor = Cursors.Hand;
-            btnSewaSekarang.CustomizableEdges = customizableEdges7;
+            btnSewaSekarang.CustomizableEdges = customizableEdges3;
             btnSewaSekarang.DisabledState.BorderColor = Color.DarkGray;
             btnSewaSekarang.DisabledState.CustomBorderColor = Color.DarkGray;
             btnSewaSekarang.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -122,7 +123,7 @@
             btnSewaSekarang.ForeColor = Color.White;
             btnSewaSekarang.Location = new Point(15, 282);
             btnSewaSekarang.Name = "btnSewaSekarang";
-            btnSewaSekarang.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnSewaSekarang.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnSewaSekarang.Size = new Size(187, 35);
             btnSewaSekarang.TabIndex = 5;
             btnSewaSekarang.Text = "Sewa";

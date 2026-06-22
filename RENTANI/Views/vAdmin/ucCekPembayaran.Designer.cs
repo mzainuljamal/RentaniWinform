@@ -145,6 +145,7 @@
             dgvPembayaran.ThemeStyle.HeaderStyle.Height = 40;
             dgvPembayaran.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
             dgvPembayaran.ThemeStyle.RowsStyle.Height = 33;
+            dgvPembayaran.CellContentClick += dgvPembayaran_CellContentClick_1;
             // 
             // idPembayaranCol
             // 
